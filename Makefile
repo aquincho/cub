@@ -6,7 +6,7 @@
 #    By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/02/13 11:09:30 by aquincho         ###   ########.fr        #
+#    Updated: 2023/02/13 12:32:21 by aquincho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ MAIN_FILES = main.c init.c free.c error.c
 MAIN_DIR=./
 MAIN=$(addprefix ${MAIN_DIR}, ${MAIN_FILES})
 
-PARSER_FILES= parser.c
+PARSER_FILES= parser.c parser_utils.c
 PARSER_DIR=./parser/
 PARSER=$(addprefix ${PARSER_DIR}, ${PARSER_FILES})
 
@@ -49,25 +49,26 @@ SRC_FILES= $(MAIN) $(PARSER)
 OBJ_DIR=./obj/
 OBJ_FILES=${SRC_FILES:%.c=${OBJ_DIR}%.o}
 
-${OBJ_FILES}: ${OBJ_DIR}%.o : $(SRC_DIR)%.c
-	mkdir -p $(@D)
-	${CC} ${CFLAGS} ${INC_FLAGS} -c $< -o $@
-
 all: $(NAME)
 
-${NAME}: $(LIBFT) $(MLX) ${OBJ_FILES}
-	${CC} ${CFLAGS} ${INC_FLAGS} ${OBJ_FILES} ${LIB_FLAGS} -o ${NAME}
+${NAME}: ${OBJ_FILES}
+	$(MAKE_LIBFT)
+	$(MAKE_MLX)
+	${CC} ${CFLAGS} ${INC_FLAGS} ${OBJ_FILES} ${LIBS_FLAGS} -o ${NAME}
 
+${OBJ_FILES}: ${OBJ_DIR}%.o : $(SRC_DIR)%.c
+	mkdir -p $(@D)
+	${CC} ${CFLAGS} ${INC_FLAGS} -c $^ -o $@
 
 clean:
-	$(RM) $(OBJS)
-	make clean -C $(LIBFT_PATH)
-	make clean -C $(MLX_PATH)
+	${RM} -r ${OBJ_DIR}
+	${MAKE_LIBFT} clean
+	$(MAKE_MLX) clean
 	@echo "\033[33;32m=== so_long object files deleted \t\t\t\tDONE\e[0m"
 
 fclean:	clean
 	$(RM) $(NAME)
-	make fclean -C $(LIBFT_PATH)
+	${MAKE_LIBFT} fclean
 	@echo "\033[33;32m=== so_long bin file deleted \t\t\tDONE\e[0m"
 
 re: fclean all

@@ -6,13 +6,13 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:50:20 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/13 11:51:46 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:15:34 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static int	ft_check_file(char *path, t_game *game)
+int	ft_check_file(char *path, t_game *game)
 {
 	int	result;
 	int	tmp_fd;

@@ -6,36 +6,47 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/13 12:52:59 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/17 09:21:24 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_map	*ft_init_map(void)
+static t_color	ft_init_color(int n)
 {
-	t_map	*result;
-
-	result = malloc(sizeof(t_map));
-	if (!result)
-		ft_error_exit(sys_err, "Cannot create map");
-	result->name = NULL;
-	result->map = NULL;
-	result->width = 0;
-	result->height = 0;
-	result->ceil.r = 0;
-	result->ceil.g = 0;
-	result->ceil.b = 0;
+	t_color	result;
+	
+	result.r = n;
+	result.g = n;
+	result.b = n;
 	return (result);
 }
 
-t_game	*ft_init_game(void)
+int	ft_init_map(t_map *map)
 {
-	t_game	*result;
+	map = malloc(sizeof(t_map));
+	if (!map)
+		return (ft_error(sys_err, NULL));
+	map->name = NULL;
+	map->map = NULL;
+	map->width = 0;
+	map->height = 0;
+	map->n_wall = NULL;
+	map->s_wall = NULL;
+	map->e_wall = NULL;
+	map->w_wall = NULL;
+	map->ceil = ft_init_color(0);
+	map->floor = ft_init_color(0);
+	return (0);
+}
 
-	result = malloc(sizeof(t_game));
-	if (!result)
-		ft_error_exit(sys_err, "Cannot create game");
-	result->map = ft_init_map();
-	return (result);
+int	ft_init_game(t_game *game)
+{
+	game = malloc(sizeof(t_game));
+	if (!game)
+		return (ft_error(sys_err, NULL));
+	if (ft_init_map(game->map))
+		return (ft_error(sys_err, NULL));
+	game->exit_status = EXIT_SUCCESS;
+	return (game->exit_status);
 }

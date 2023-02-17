@@ -6,28 +6,30 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:16 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/13 11:37:20 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/17 09:18:25 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	ft_free_map(t_map *map)
+int	ft_free_map(t_map *map)
 {
 	if (!map)
-		return ;
+		return (0);
 	if (map->name)
 		free (map->name);
 	if (map->map)
 		free(map->map);
 	free (map);
+	return (0);
 }
 
-void	ft_free_game(t_game *game)
+int	ft_free_game(t_game *game)
 {
 	if (!game)
-		return ;
+		return (0);
 	if (game->map)
 		ft_free_map(game->map);
 	free(game);
+	return (0);
 }

@@ -6,20 +6,26 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/13 13:02:48 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:25:20 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-#include "libft.h"
+# include "libft.h"
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <errno.h>
 
 typedef enum e_error
 {
+	default_err,
 	sys_err,
-	filetype_err,
-	default_err
+	init_err,
+	arg_err,
+	file_err,
 }	t_error;
 
 typedef struct s_color
@@ -29,12 +35,17 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
+typedef struct s_tex
+{
+	char	*path;
+}	t_tex;
+
 typedef struct s_map
 {
 	char	*name;
 	char	**map;
 	int		width;
-	int		length;
+	int		height;
 	char	*n_wall;
 	char	*s_wall;
 	char	*e_wall;
@@ -46,19 +57,22 @@ typedef struct s_map
 typedef struct	s_game
 {
 	t_map	*map;
+	int		exit_status;
 }	t_game;
 
 /* initialization init.c */
-t_game	*ft_init_game(void);
-t_map	*ft_init_map(void);
+int		ft_init_game(t_game *game);
+int		ft_init_map(t_map *map);
 /* error management error.c*/
-int	ft_error_exit(t_error error_type, char *msg);
+int		ft_error(t_error error_type, char *msg);
+int		ft_error_exit(t_error error_type, char *msg, t_game *game);
 /* free memory management free.c */
-void	ft_free_game(t_game *game);
+int		ft_free_game(t_game *game);
+int		ft_free_map(t_map *map);
 
 /* file parsing parser.c */
-t_map	*ft_read_mapfile(char *arg);
+int		ft_read_file(t_game *game, char *arg);
 /* parser utilities parser_utils.c */
-int	ft_check_file(char *path, t_game *game);
+int		ft_check_file(char *path);
 
 #endif

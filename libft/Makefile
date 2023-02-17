@@ -2,7 +2,8 @@ NAME = libft.a
 
 SRCS_PATH = ./
 SRCS_FUNCTIONS = ft_calloc ft_strlen ft_strncmp ft_putendl_fd ft_substr \
-ft_strjoin ft_strchr ft_strlcat ft_strdup ft_putchar_fd ft_putnbr_fd
+ft_strjoin ft_strchr ft_strlcat ft_strdup ft_putchar_fd ft_putnbr_fd \
+ft_split ft_atoi ft_isdigit
 #SRCS_FUNCTIONS = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint \
 ft_strlen ft_memset ft_bzero ft_memcpy	ft_memmove ft_strlcpy ft_strlcat \
 ft_toupper ft_tolower ft_strchr ft_strrchr ft_strncmp ft_memchr ft_memcmp \

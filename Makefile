@@ -6,7 +6,7 @@
 #    By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/02/13 12:32:21 by aquincho         ###   ########.fr        #
+#    Updated: 2023/02/17 12:01:40 by aquincho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,21 +18,21 @@ RM			= rm -f
 AR			= ar rcs
 
 INC_DIR 	= ./include
-INC_FLAGS = -I${INC_DIR} -I${LIBFT_INC_DIR} -I$(MLX_DIR)
+INC_FLAGS = -I${INC_DIR} -I${LIBFT_INC_DIR} #-I$(MLX_DIR)
 
 LIBFT_DIR 	= ./libft
 LIBFT_INC_DIR = $(LIBFT_DIR)/includes
 MAKE_LIBFT 	= make -C ${LIBFT_DIR}
 LIBFT 		= ${MAKE_LIBFT}
-LIBFT_FLAGS = -L${LIBFT_PATH} -lft
+LIBFT_FLAGS = -L${LIBFT_DIR} -lft
 
 
-MLX_DIR 		= mlx/
+MLX_DIR 		= mlx
 MAKE_MLX	 	= make -C ${MLX_DIR}
 MLX				= $(MAKE_MLX)
-MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lm -framework OpenGL -framework AppKit
 
-LIBS_FLAGS		= $(LIBFT_FLAG) $(MLX_FLAGS)
+LIBS_FLAGS		= $(LIBFT_FLAGS) #$(MLX_FLAGS)
 
 SRC_DIR		= ./src/
 
@@ -53,7 +53,7 @@ all: $(NAME)
 
 ${NAME}: ${OBJ_FILES}
 	$(MAKE_LIBFT)
-	$(MAKE_MLX)
+#	$(MAKE_MLX)
 	${CC} ${CFLAGS} ${INC_FLAGS} ${OBJ_FILES} ${LIBS_FLAGS} -o ${NAME}
 
 ${OBJ_FILES}: ${OBJ_DIR}%.o : $(SRC_DIR)%.c

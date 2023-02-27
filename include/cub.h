@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/17 10:25:20 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 09:28:30 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_tex
 	char	*path;
 }	t_tex;
 
-typedef struct s_map
+typedef struct s_data
 {
 	char	*name;
 	char	**map;
@@ -52,23 +52,23 @@ typedef struct s_map
 	char	*w_wall;
 	t_color	ceil;
 	t_color	floor;
-}	t_map;
+}	t_data;
 
 typedef struct	s_game
 {
-	t_map	*map;
+	t_data	data;
 	int		exit_status;
 }	t_game;
 
 /* initialization init.c */
 int		ft_init_game(t_game *game);
-int		ft_init_map(t_map *map);
+
 /* error management error.c*/
 int		ft_error(t_error error_type, char *msg);
 int		ft_error_exit(t_error error_type, char *msg, t_game *game);
 /* free memory management free.c */
 int		ft_free_game(t_game *game);
-int		ft_free_map(t_map *map);
+int		ft_free_data(t_data*data);
 
 /* file parsing parser.c */
 int		ft_read_file(t_game *game, char *arg);

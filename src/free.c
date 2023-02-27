@@ -6,21 +6,21 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:16 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/17 09:18:25 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 09:46:16 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	ft_free_map(t_map *map)
+int	ft_free_data(t_data *data)
 {
-	if (!map)
+	if (!data)
 		return (0);
-	if (map->name)
-		free (map->name);
-	if (map->map)
-		free(map->map);
-	free (map);
+	if (data->name)
+		free (data->name);
+	if (data->map)
+		free(data->map);
+	free (data);
 	return (0);
 }
 
@@ -28,8 +28,8 @@ int	ft_free_game(t_game *game)
 {
 	if (!game)
 		return (0);
-	if (game->map)
-		ft_free_map(game->map);
+	if (&game->data)
+		ft_free_data(&game->data);
 	free(game);
 	return (0);
 }

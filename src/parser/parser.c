@@ -6,37 +6,38 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/17 10:12:25 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 11:00:48 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static int	ft_map(t_map *map, int fd, char *line)
+static int	ft_map(t_data *data, int fd, char *line)
 {
 	char	**tmp;
 
 	tmp = malloc(sizeof(char *));
 	*tmp = ft_strdup(line);
-	map->width = ft_strlen(line);
+	data->width = ft_strlen(line);
 	while (line && (!ft_strncmp(line, "1", 1) || !ft_strncmp(line, " ", 1)))
 	{
-		map->height++;
+		data->height++;
 		free(line);
 		line = get_next_line(fd);
 		
 	}
 	return (0);
 }
-
-static int	ft_texture(char *texture, char *line)
+#include <stdio.h>
+static int	ft_texture(char **texture, char *line)
 {
 	char **tmp;
 
 	tmp = ft_split(line, ' ');
 	if (tmp[1])
-		texture = ft_strdup(tmp[1]);
-	if (ft_check_file(texture))
+		*texture = ft_strdup(tmp[1]);
+	texture[0][ft_strlen(*texture) - 1] = '\0';
+	if (ft_check_file(*texture))
 		return (1);
 	return (0);
 }
@@ -66,30 +67,30 @@ static int	ft_color(t_color *color, char *line)
 	return (0);
 }
 
-static int	ft_parser(int fd, t_map *map)
+static int	ft_parser(int fd, t_data *data)
 {
 	char	*tmp;
 
 	tmp = get_next_line(fd);
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp, "NO", 2) && ft_texture(map->n_wall, tmp))
+		if (!ft_strncmp(tmp, "NO", 2) && ft_texture(&data->n_wall, tmp))
 			return (ft_error(file_err, " Cannot read north image file"));
-		else if (!ft_strncmp(tmp, "SO", 2) && ft_texture(map->s_wall, tmp))
+		else if (!ft_strncmp(tmp, "SO", 2) && ft_texture(&data->s_wall, tmp))
 			return (ft_error(file_err, " Cannot read south image file"));
-		else if (!ft_strncmp(tmp, "WE", 2) && ft_texture(map->w_wall, tmp))
+		else if (!ft_strncmp(tmp, "WE", 2) && ft_texture(&data->w_wall, tmp))
 			return (ft_error(file_err, " Cannot read south image file"));
-		else if (!ft_strncmp(tmp, "EA", 2) && ft_texture(map->e_wall, tmp))
+		else if (!ft_strncmp(tmp, "EA", 2) && ft_texture(&data->e_wall, tmp))
 			return (ft_error(file_err, " Cannot read south image file"));
-		else if (!ft_strncmp(tmp, "C", 1) && ft_color(&map->ceil, tmp))
+		else if (!ft_strncmp(tmp, "C", 1) && ft_color(&data->ceil, tmp))
 			return (ft_error(file_err, " Cannot read color"));
-		else if (!ft_strncmp(tmp, "F", 1) && ft_color(&map->floor, tmp))
+		else if (!ft_strncmp(tmp, "F", 1) && ft_color(&data->floor, tmp))
 			return (ft_error(file_err, " Cannot read color"));
 		else if ((!ft_strncmp(tmp, "1", 1) || !ft_strncmp(tmp, " ", 1))
-			&& ft_map(map, fd, tmp))
+			&& ft_map(data, fd, tmp))
 			return (ft_error(file_err, " Cannot parse map"));
-		else if (ft_strncmp(tmp, "\n", 1))
-			return (ft_error(file_err, " Invalid line."));
+		/*else if (ft_strncmp(tmp, "\n", 1))
+			return (ft_error(file_err, " Invalid line."));*/
 		tmp = get_next_line(fd);
 	}
 	return (0);
@@ -102,14 +103,13 @@ int	ft_read_file(t_game *game, char *arg)
 	if (ft_strlen(arg) < 4
 		|| ft_strncmp((arg + ft_strlen(arg)- 4), ".cub", 4))
 	{
-		ft_error(file_err, " Wrong map format.");
 		return (ft_error(file_err, " Wrong map format."));
 	}
-	game->map->name = ft_substr(arg, 0, ft_strlen(arg) - 4);
+	game->data.name = ft_substr(arg, 0, ft_strlen(arg) - 4);
 	fd = open(arg, O_RDONLY);
 	if (fd < 1)
 		return (ft_error(file_err, arg));
-	if (ft_parser(fd, game->map))
+	if (ft_parser(fd, &game->data))
 	{
 		close (fd);
 		ft_error_exit(file_err, NULL, game);

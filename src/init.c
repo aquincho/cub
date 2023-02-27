@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/17 09:21:24 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 09:45:48 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,32 @@ static t_color	ft_init_color(int n)
 	return (result);
 }
 
-int	ft_init_map(t_map *map)
+static int	ft_init_map(t_data *data)
 {
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (ft_error(sys_err, NULL));
-	map->name = NULL;
-	map->map = NULL;
-	map->width = 0;
-	map->height = 0;
-	map->n_wall = NULL;
-	map->s_wall = NULL;
-	map->e_wall = NULL;
-	map->w_wall = NULL;
-	map->ceil = ft_init_color(0);
-	map->floor = ft_init_color(0);
-	return (0);
+	/*data = malloc(sizeof(t_data));
+	if (!data)
+		return (ft_error(sys_err, NULL));*/
+	data->name = "TEST";
+	data->map = NULL;
+	data->width = 0;
+	data->height = 0;
+	data->n_wall = NULL;
+	data->s_wall = NULL;
+	data->e_wall = NULL;
+	data->w_wall = NULL;
+	data->ceil = ft_init_color(0);
+	data->floor = ft_init_color(12);
+	return (EXIT_SUCCESS);
 }
-
+#include <stdio.h>
 int	ft_init_game(t_game *game)
 {
-	game = malloc(sizeof(t_game));
+	/*game = malloc(sizeof(t_game));
 	if (!game)
-		return (ft_error(sys_err, NULL));
-	if (ft_init_map(game->map))
-		return (ft_error(sys_err, NULL));
+		return (ft_error(sys_err, NULL));*/
 	game->exit_status = EXIT_SUCCESS;
+	if (ft_init_map(&game->data))
+		return (ft_error(sys_err, NULL));
+	printf("%p\n", game);
 	return (game->exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 10:24:59 by aquincho          #+#    #+#             */
-/*   Updated: 2022/05/19 10:25:34 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:42:47 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_cutline(char *buffer)
 	int		i;
 
 	i = 0;
-	if (!buffer[i])
+	if (!buffer || !buffer[i])
 		return (NULL);
 	while (buffer[i] != '\n' && buffer[i])
 		i++;

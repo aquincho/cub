@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 11:58:38 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:29:14 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_data
 typedef struct	s_game
 {
 	t_data	data;
+	//void	*mlx;
+	//void	*win;
 	int		exit_status;
 }	t_game;
 

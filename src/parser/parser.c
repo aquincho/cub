@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 12:21:06 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:49:52 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,16 @@ static int	ft_parser(int fd, t_data *data)
 		else if ((!ft_strncmp(tmp, "1", 1) || !ft_strncmp(tmp, " ", 1))
 			&& ft_map(data, fd, tmp))
 			return (ft_error(file_err, " Cannot parse map"));
+		else if (ft_isalnum(tmp[0]))
+			return (ft_error(file_err, " Invalid line."));
 		/*else if (ft_strncmp(tmp, "\n", 1))
 			return (ft_error(file_err, " Invalid line."));*/
-		free(tmp);
+		/*if (tmp)
+			free(tmp);*/
 		tmp = get_next_line(fd);
 	}
-	free(tmp);
+	if (tmp)
+		free(tmp);
 	return (0);
 }
 

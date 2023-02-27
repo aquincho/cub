@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:17:05 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 12:10:15 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:15:21 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int	main(int argc, char **argv)
 		j++;
 	}
 	printf("%d - %d", game.data.width, game.data.height);
-	//ft_free_game(&game);
+	ft_free_game(&game);
 	return (EXIT_SUCCESS);
 }

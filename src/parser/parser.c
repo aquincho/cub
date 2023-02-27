@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 12:00:01 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:21:06 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	ft_map(t_data *data, int fd, char *line)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	return (EXIT_SUCCESS);
 }
 
@@ -39,6 +40,7 @@ static int	ft_texture(char **texture, char *line)
 	if (tmp[1])
 		*texture = ft_strdup(tmp[1]);
 	texture[0][ft_strlen(*texture) - 1] = '\0';
+	ft_free_tab(tmp);
 	if (ft_check_file(*texture))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -66,6 +68,7 @@ static int	ft_color(t_color *color, char *line)
 	color->r = ft_atoi(tmp[0]);
 	color->g = ft_atoi(tmp[1]);
 	color->b = ft_atoi(tmp[2]);
+	ft_free_tab(tmp);
 	return (EXIT_SUCCESS);
 }
 
@@ -93,8 +96,10 @@ static int	ft_parser(int fd, t_data *data)
 			return (ft_error(file_err, " Cannot parse map"));
 		/*else if (ft_strncmp(tmp, "\n", 1))
 			return (ft_error(file_err, " Invalid line."));*/
+		free(tmp);
 		tmp = get_next_line(fd);
 	}
+	free(tmp);
 	return (0);
 }
 

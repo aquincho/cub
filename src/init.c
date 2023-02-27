@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 09:45:48 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:07:44 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static t_color	ft_init_color(int n)
 
 static int	ft_init_map(t_data *data)
 {
-	/*data = malloc(sizeof(t_data));
-	if (!data)
-		return (ft_error(sys_err, NULL));*/
-	data->name = "TEST";
+	data->name = NULL;
 	data->map = NULL;
 	data->width = 0;
 	data->height = 0;
@@ -39,15 +36,10 @@ static int	ft_init_map(t_data *data)
 	data->floor = ft_init_color(12);
 	return (EXIT_SUCCESS);
 }
-#include <stdio.h>
 int	ft_init_game(t_game *game)
 {
-	/*game = malloc(sizeof(t_game));
-	if (!game)
-		return (ft_error(sys_err, NULL));*/
 	game->exit_status = EXIT_SUCCESS;
 	if (ft_init_map(&game->data))
 		return (ft_error(sys_err, NULL));
-	printf("%p\n", game);
 	return (game->exit_status);
 }

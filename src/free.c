@@ -6,11 +6,27 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:16 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 09:46:16 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:02:39 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int	ft_free_tab(char **tab)
+{
+	int	i;
+
+	if (!tab)
+		return (EXIT_SUCCESS);
+	i = 0;
+	while(tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free (tab);
+	return (EXIT_SUCCESS);
+}
 
 int	ft_free_data(t_data *data)
 {

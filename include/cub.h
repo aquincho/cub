@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 09:28:30 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 11:58:38 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int		ft_init_game(t_game *game);
 int		ft_error(t_error error_type, char *msg);
 int		ft_error_exit(t_error error_type, char *msg, t_game *game);
 /* free memory management free.c */
+int		ft_free_tab(char **tab);
 int		ft_free_game(t_game *game);
 int		ft_free_data(t_data*data);
 
@@ -74,5 +75,6 @@ int		ft_free_data(t_data*data);
 int		ft_read_file(t_game *game, char *arg);
 /* parser utilities parser_utils.c */
 int		ft_check_file(char *path);
+char	**ft_tabdup_addline(char **tab, char *line, int size);
 
 #endif

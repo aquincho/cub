@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:17:05 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 11:02:50 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:10:15 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ int	main(int argc, char **argv)
 	}
 	int j;
 	j = 0;
-	while (j < 5)
+	while (game.data.map[j])
 	{
-		printf("%d\n",game.data.width);
+		printf("%s\n",game.data.map[j]);
 		j++;
 	}
+	printf("%d - %d", game.data.width, game.data.height);
 	//ft_free_game(&game);
 	return (EXIT_SUCCESS);
 }

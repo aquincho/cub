@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 11:00:48 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/27 12:00:01 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@ static int	ft_map(t_data *data, int fd, char *line)
 {
 	char	**tmp;
 
-	tmp = malloc(sizeof(char *));
-	*tmp = ft_strdup(line);
-	data->width = ft_strlen(line);
 	while (line && (!ft_strncmp(line, "1", 1) || !ft_strncmp(line, " ", 1)))
 	{
 		data->height++;
+		if ((int)ft_strlen(line) > data->width)
+			data->width = ft_strlen(line);
+		tmp = ft_tabdup_addline(data->map, line, data->height);
+		ft_free_tab(data->map);
+		data->map = ft_tabdup_addline(tmp, NULL, data->height);
+		ft_free_tab(tmp);
 		free(line);
 		line = get_next_line(fd);
-		
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
-#include <stdio.h>
+
 static int	ft_texture(char **texture, char *line)
 {
 	char **tmp;
@@ -38,8 +40,8 @@ static int	ft_texture(char **texture, char *line)
 		*texture = ft_strdup(tmp[1]);
 	texture[0][ft_strlen(*texture) - 1] = '\0';
 	if (ft_check_file(*texture))
-		return (1);
-	return (0);
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 static int	ft_color(t_color *color, char *line)
@@ -59,12 +61,12 @@ static int	ft_color(t_color *color, char *line)
 		while (tmp[i])
 			free(tmp[i]);
 		free(tmp);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	color->r = ft_atoi(tmp[0]);
 	color->g = ft_atoi(tmp[1]);
 	color->b = ft_atoi(tmp[2]);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 static int	ft_parser(int fd, t_data *data)

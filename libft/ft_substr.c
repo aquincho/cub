@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 14:39:35 by aquincho          #+#    #+#             */
-/*   Updated: 2022/05/04 14:40:00 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:12:12 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		*(dst + i) = *(s + start + i);
 		i++;
 	}
-	*(dst + i) = 0;
+	*(dst + i) = '\0';
 	return (dst);
 }

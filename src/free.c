@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:16 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 12:17:49 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/01 10:28:26 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,17 @@ int	ft_free_tab(char **tab)
 
 int	ft_free_data(t_data *data)
 {
+	int	i;
+
 	if (!data)
 		return (0);
 	if (data->name)
 		free (data->name);
 	if (data->map)
 		ft_free_tab(data->map);
-	free (data->n_wall);
-	free(data->s_wall);
-	free(data->e_wall);
-	free(data->w_wall);
+	i = -1;
+	while (++i < NB_TEXTURES)
+		free(data->texture[i]);
 	return (0);
 }
 

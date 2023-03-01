@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 12:29:14 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/01 11:51:17 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <fcntl.h>
 # include <errno.h>
 
+# define NB_TEXTURES	4
+
 typedef enum e_error
 {
 	default_err,
@@ -27,6 +29,14 @@ typedef enum e_error
 	arg_err,
 	file_err,
 }	t_error;
+
+typedef enum e_texture
+{
+	north,
+	south,
+	east,
+	west
+}	t_texture;
 
 typedef struct s_color
 {
@@ -46,10 +56,7 @@ typedef struct s_data
 	char	**map;
 	int		width;
 	int		height;
-	char	*n_wall;
-	char	*s_wall;
-	char	*e_wall;
-	char	*w_wall;
+	char	*texture[NB_TEXTURES];
 	t_color	ceil;
 	t_color	floor;
 }	t_data;
@@ -78,5 +85,6 @@ int		ft_read_file(t_game *game, char *arg);
 /* parser utilities parser_utils.c */
 int		ft_check_file(char *path);
 char	**ft_tabdup_addline(char **tab, char *line, int size);
+int		ft_check_map(char **map, t_data *data);
 
 #endif

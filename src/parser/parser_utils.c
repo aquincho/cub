@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:50:20 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/01 12:27:08 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/03 11:04:15 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,33 @@ char	**ft_tabdup_addline(char **tab, char *line, int size)
 	result[size] = NULL;
 	return (result);
 }
+#include <stdio.h>
+int	ft_check_inset(char *line, char *set)
+{
+	int		i;
+	int		j;
+	bool	not_in_set;
+
+	i = 0;
+	while (line[i])
+	{
+		not_in_set = true;
+		j = 0;
+		while (set[j])
+		{
+			if (line[i] == set[j])
+				not_in_set = false;
+			j++;
+		}
+		if (not_in_set)
+		{
+			printf("%d %d %c\n%s", i, j, line[i], line);
+			return (EXIT_FAILURE);
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
 
 int	ft_check_map(char **map, t_data *data)
 {
@@ -63,29 +90,37 @@ int	ft_check_map(char **map, t_data *data)
 		while ( j < (int)ft_strlen((map[i])))
 		{
 			
-			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != ' ')
+			while (j < (int)ft_strlen((map[i])) && map[i][j] == ' ')
 			{
-				if ((map[i][j] == 'W' || map[i][j] == 'E' || map[i][j] == 'S'
-					|| map[i][j] == 'N') && nb_perso == 0)
+				if ((i > 0 
+					&& !(map[i - 1][j] == ' ' || map[i - 1][j] == '1'))
+					|| (i < data->height - 1
+					&& !(map[i + 1][j] == ' ' || map[i + 1][j] == '1'))
+					|| (map[i][j - 1] 
+					&& !(map[i][j - 1] == ' ' || map[i][j - 1] == '1'))
+					|| (map[i][j + 1] 
+					&& !(map[i][j + 1] == ' ' || map[i][j + 1] == '1')))
+					return (EXIT_FAILURE);
+				j++;
+			}
+			if ((i == 0 || i == data->height - 1
+				|| j == 0 || j == (int)ft_strlen(map[i]) - 1)
+				&& !(map[i][j] == '1' || map[i][j] == ' '))
+				return (EXIT_FAILURE);
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
+				|| map[i][j] == 'E')
+			{
+				if (nb_perso < 1)
 					nb_perso++;
 				else
 					return (EXIT_FAILURE);
 			}
-			if ((i == 0 || i == data->height - 1)
-				&& !(map[i][j] == '1' || map[i][j] == ' '))
-					return (EXIT_FAILURE);
-			if ((j == 0 || j == (int)ft_strlen(map[i]) - 1)
-				&& map[i][j] != '1')
-			{
-				if ((j == 0 && map[i][j] != ' ')
-					|| j == (int)ft_strlen(map[i]) - 1)
-					return (EXIT_FAILURE);
-			}
-			if (((i > 0 && map[i - 1][j] == ' ')
-				|| (i < data->height - 1 && map[i + 1][j] == ' ')
-				|| (j > 0 && map[i][j - 1] == ' ')
-				|| (j < (int)ft_strlen(map[i]) - 1 && map[i][j + 1] == ' '))
-				&& !(map[i][j] == '1' || map[i][j] == ' '))
+			if (map[i][j] == '0' && (map[i - 1][j] == ' ' || map[i + 1][j] == ' '
+			|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
+				return (EXIT_FAILURE);
+			if (map[i][j] == '0' && ((i > 0
+				&& j > (int)ft_strlen(map[i - 1]))
+				|| (i < data->height - 1 && j > (int)ft_strlen(map[i - 1]))))
 				return (EXIT_FAILURE);
 			j++;
 		}

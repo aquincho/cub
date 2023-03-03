@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/01 11:51:17 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:22:32 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,24 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <math.h>
+# include <stdbool.h>
+//# include <mlx.h>
+# include "../mlx/mlx.h"
 
 # define NB_TEXTURES	4
+# define MAP_CHAR	" 01NSWE\n"
+# define DIRECTIONS	"NSWE"
+
+# define K_ESC	65307
+# define K_LT	65361
+# define K_UP	65362
+# define K_RT	65363
+# define K_DN	65364
+# define K_W	119
+# define K_S	115
+# define K_A	97
+# define K_D	100
 
 typedef enum e_error
 {
@@ -45,10 +61,11 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
-typedef struct s_tex
+typedef struct s_pos
 {
-	char	*path;
-}	t_tex;
+	double	x;
+	double	y;
+}	t_pos;
 
 typedef struct s_data
 {
@@ -61,11 +78,19 @@ typedef struct s_data
 	t_color	floor;
 }	t_data;
 
+typedef struct s_cam
+{
+	t_pos	cam_pos;
+	t_pos	cam_dir;
+	t_pos	cam_plane;
+}	t_cam;
+
 typedef struct	s_game
 {
 	t_data	data;
-	//void	*mlx;
-	//void	*win;
+	void	*mlx;
+	void	*win;
+	t_cam	cam;
 	int		exit_status;
 }	t_game;
 
@@ -85,6 +110,7 @@ int		ft_read_file(t_game *game, char *arg);
 /* parser utilities parser_utils.c */
 int		ft_check_file(char *path);
 char	**ft_tabdup_addline(char **tab, char *line, int size);
+int		ft_check_inset(char *line, char *set);
 int		ft_check_map(char **map, t_data *data);
 
 #endif

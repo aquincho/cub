@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/01 11:55:56 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:40:31 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ static int	ft_map(t_data *data, int fd, char **line)
 
 	while (*line && (!ft_strncmp(*line, "1", 1) || !ft_strncmp(*line, " ", 1)))
 	{
+		if (ft_check_inset(*line, MAP_CHAR))
+		{
+			free (*line);
+			return (EXIT_FAILURE);
+		}
 		data->height++;
 		if ((int)ft_strlen(*line) > data->width)
 			data->width = ft_strlen(*line);

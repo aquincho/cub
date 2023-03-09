@@ -43,6 +43,5 @@ int	ft_init_game(t_game *game)
 	if (ft_init_map(&game->data))
 		return (ft_error(sys_err, NULL));
 	game->mlx = NULL;
-	game->win = NULL;
 	return (game->exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:17:05 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/01 13:01:27 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:49:02 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv)
 	{
 		if (ft_read_file(&game, argv[i]))
 			return (EXIT_FAILURE);
+		ft_game(&game);
 	}
 	int j;
 	j = 0;

@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/03 10:22:32 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:06:49 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,29 @@ typedef struct s_cam
 	t_pos	cam_plane;
 }	t_cam;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*adrr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
+typedef	struct	s_win
+{
+	void		*ptr;
+	t_img		img;
+	t_pos		size;
+	t_pos		half;
+	double		ratio;
+}				t_win;
+
 typedef struct	s_game
 {
 	t_data	data;
 	void	*mlx;
-	void	*win;
+	t_win	win;
 	t_cam	cam;
 	int		exit_status;
 }	t_game;

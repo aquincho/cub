@@ -6,7 +6,7 @@
 #    By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/03/02 11:17:59 by aquincho         ###   ########.fr        #
+#    Updated: 2023/03/09 09:48:41 by aquincho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,11 @@ PARSER_FILES= parser.c parser_utils.c
 PARSER_DIR=./parser/
 PARSER=$(addprefix ${PARSER_DIR}, ${PARSER_FILES})
 
-SRC_FILES= $(MAIN) $(PARSER)
+ENGINE_FILES= game.c init_mlx.c
+ENGINE_DIR=./engine/
+ENGINE=$(addprefix ${ENGINE_DIR}, ${ENGINE_FILES})
+
+SRC_FILES= $(MAIN) $(PARSER) $(ENGINE)
 
 OBJ_DIR=./obj/
 OBJ_FILES=${SRC_FILES:%.c=${OBJ_DIR}%.o}

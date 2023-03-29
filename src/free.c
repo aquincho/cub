@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:16 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/01 10:28:26 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/29 11:22:58 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,29 @@ int	ft_free_data(t_data *data)
 	while (++i < NB_TEXTURES)
 		free(data->texture[i]);
 	return (0);
+}
+
+void	ft_free_mlx(t_game *game)
+{
+	if (game->img.ptr)
+		mlx_destroy_image(game->mlx, game->img.ptr);
+	if (game->win.ptr)
+		mlx_destroy_window(game->mlx, game->win.ptr);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		mlx_loop_end(game->mlx);
+	}
+}
+
+int	ft_kill_win(t_game *game)
+{
+	
+	ft_free_mlx(game);
+	if (game->mlx)
+		free(game->mlx);
+	ft_free_game(game);
+	exit (0);
 }
 
 int	ft_free_game(t_game *game)

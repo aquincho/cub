@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/02 11:37:20 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:58:31 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	ft_init_map(t_data *data)
 	data->map = NULL;
 	data->width = 0;
 	data->height = 0;
+	ft_set_pos(&data->start_pos, 0, 0);
+	ft_set_pos(&data->start_dir, 0, 0);
 	i = -1;
 	while (++i < 4)
 		data->texture[i] = NULL;

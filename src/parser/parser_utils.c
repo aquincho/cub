@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:50:20 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/03 11:04:15 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:29:25 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**ft_tabdup_addline(char **tab, char *line, int size)
 	result[size] = NULL;
 	return (result);
 }
-#include <stdio.h>
+
 int	ft_check_inset(char *line, char *set)
 {
 	int		i;
@@ -67,13 +67,32 @@ int	ft_check_inset(char *line, char *set)
 			j++;
 		}
 		if (not_in_set)
-		{
-			printf("%d %d %c\n%s", i, j, line[i], line);
 			return (EXIT_FAILURE);
-		}
 		i++;
 	}
 	return (EXIT_SUCCESS);
+}
+
+void	ft_start_pos(t_data *data, int i, int j)
+{
+	data->start_pos.x = i;
+	data->start_pos.y = j;
+	if (data->map[i][j] == 'N' || data->map[i][j] == 'S')
+	{
+		data->start_dir.x = 0;
+		if (data->map[i][j] == 'N')
+			data->start_dir.y = -1;
+		else
+			data->start_dir.y = 1;
+	}
+	else if (data->map[i][j] == 'W' || data->map[i][j] == 'E')
+	{
+		data->start_dir.y = 0;
+		if (data->map[i][j] == 'E')
+			data->start_dir.x = 1;
+		else
+			data->start_dir.x = -1;
+	}
 }
 
 int	ft_check_map(char **map, t_data *data)
@@ -110,6 +129,7 @@ int	ft_check_map(char **map, t_data *data)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
 				|| map[i][j] == 'E')
 			{
+				ft_start_pos(data, i, j);
 				if (nb_perso < 1)
 					nb_perso++;
 				else

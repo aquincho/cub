@@ -6,7 +6,7 @@
 #    By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/03/09 09:48:41 by aquincho         ###   ########.fr        #
+#    Updated: 2023/03/10 12:59:54 by aquincho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,13 @@ LIBFT_FLAGS = -L${LIBFT_DIR} -lft
 MLX_DIR 		= mlx
 MAKE_MLX	 	= make -C ${MLX_DIR}
 MLX				= $(MAKE_MLX)
-MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lm #-framework OpenGL -framework AppKit
+MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lm -lXext -lX11 -lz
 
 LIBS_FLAGS		= $(LIBFT_FLAGS) $(MLX_FLAGS)
 
 SRC_DIR		= ./src/
 
-MAIN_FILES = main.c init.c free.c error.c
+MAIN_FILES = main.c init.c free.c error.c utils.c
 MAIN_DIR=./
 MAIN=$(addprefix ${MAIN_DIR}, ${MAIN_FILES})
 
@@ -44,7 +44,7 @@ PARSER_FILES= parser.c parser_utils.c
 PARSER_DIR=./parser/
 PARSER=$(addprefix ${PARSER_DIR}, ${PARSER_FILES})
 
-ENGINE_FILES= game.c init_mlx.c
+ENGINE_FILES= game.c init_mlx.c game_utils.c draw.c
 ENGINE_DIR=./engine/
 ENGINE=$(addprefix ${ENGINE_DIR}, ${ENGINE_FILES})
 

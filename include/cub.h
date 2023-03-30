@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 10:28:24 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:27:47 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,15 +147,17 @@ int		ft_error_exit(t_error error_type, char *msg, t_game *game);
 int		ft_free_tab(char **tab);
 int		ft_free_game(t_game *game);
 int		ft_free_data(t_data*data);
-
 /* utilities utils.c */
 void	ft_set_pos(t_pos *pos, double X, double Y);
 int		ft_check_inset(char *line, char *set);
-/* file parsing parser.c */
+/* file .cub opening & reading read_file.c */
 int		ft_read_file(t_game *game, char *arg);
-/* parser utilities parser_utils.c */
 int		ft_check_file(char *path);
+/* file parsing parser.c */
+int		ft_parser(int fd, t_data *data);
+/* parser utilities parser_utils.c */
 char	**ft_tabdup_addline(char **tab, char *line, int size);
+/* parser checking parser_check.c*/
 int		ft_check_map(char **map, t_data *data);
 /* game engine game.c */
 int		ft_game(t_game game);

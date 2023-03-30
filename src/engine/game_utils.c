@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:26:41 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/29 14:04:57 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:03:53 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,3 @@ int	ft_rgb_to_int(int r, int g, int b)
 {
 	return (r << 16 | g << 8 || b);
 }
-/*
-void
-	draw_pixel(t_image *img, t_pos *pos, int color)
-{
-	if (pos->x >= 0 && pos->x < w->size.x
-		&& pos->y >= 0 && pos->y < w->size.y)
-		*(int*)(img->ptr
-			+ (4 * (int)w->size.x * (int)pos->y)
-			+ ((int)pos->x * 4)) = color;
-}*/

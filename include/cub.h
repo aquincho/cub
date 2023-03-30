@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/29 12:48:00 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:07:40 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ typedef struct	s_ray
 	int			step_y;
 	t_pos		side_dist;
 	t_pos		delta_dist;
+	t_pos		line_start;
+	t_pos		line_end;
 	double		wall_dist;
 	//t_pos		floor_wall;
 	//t_pos		c_floor;
@@ -172,6 +174,8 @@ int		ft_init_mlx(t_game *game);
 /* make image draw.c */
 void	ft_init_draw(t_game *game);
 void	ft_draw(t_game game);
+/* raycasting raycast.c*/
+void	ft_raycast(t_game *game, int x);
 /* engine utilities game_utils.c */
 void	ft_pixel_put(t_img *img, t_pos pos, int color);
 #endif

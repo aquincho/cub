@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/03 10:40:31 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 10:20:41 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	ft_map(t_data *data, int fd, char **line)
 
 static int	ft_texture(char **texture, char *line)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = ft_split(line, ' ');
 	if (tmp[1])
@@ -61,13 +61,16 @@ static int	ft_color(t_color *color, char *line)
 	char	**tmp;
 	int		i;
 
-	while (!ft_isdigit(*line)) 
+	line +=1;
+	if (ft_strncmp(line, " ", 1))
+		return (EXIT_FAILURE);
+	while (!ft_isdigit(*line))
 		line++;
 	if (!*line)
 		return (EXIT_FAILURE);
 	tmp = ft_split(line, ',');
 	i = 0;
-	while(tmp[i])
+	while (tmp[i])
 		i++;
 	if (i != 3)
 	{

@@ -6,13 +6,13 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 08:56:12 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 09:04:51 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:33:37 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-inline static void ft_init_ray_step(t_game *game)
+inline static void	ft_init_ray_step(t_game *game)
 {
 	if (game->ray.dir.x < 0)
 	{
@@ -24,7 +24,7 @@ inline static void ft_init_ray_step(t_game *game)
 	{
 		game->ray.step_x = 1;
 		game->ray.side_dist.x = (game->ray.map_x + 1.0
-			- game->cam.pos.x)
+				- game->cam.pos.x)
 			* game->ray.delta_dist.x;
 	}
 	if (game->ray.dir.y < 0)
@@ -37,12 +37,12 @@ inline static void ft_init_ray_step(t_game *game)
 	{
 		game->ray.step_y = 1;
 		game->ray.side_dist.y = (game->ray.map_y + 1.0
-			- game->cam.pos.y)
+				- game->cam.pos.y)
 			* game->ray.delta_dist.y;
 	}
 }
 
-inline static void ft_init_ray(t_game *game, int x)
+inline static void	ft_init_ray(t_game *game, int x)
 {
 	game->ray.cam_x = 2 * x / (game->win.size.x) - 1;
 	game->ray.dir.x = game->cam.dir.x + game->cam.plane.x * game->ray.cam_x;

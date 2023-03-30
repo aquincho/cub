@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 09:07:40 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 10:28:24 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ typedef struct s_data
 
 typedef struct s_cam
 {
-	double	camX;
 	t_pos	pos;
 	t_pos	dir;
 	t_pos	plane;
@@ -103,7 +102,7 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef	struct	s_win
+typedef struct s_win
 {
 	void		*ptr;
 	t_pos		size;
@@ -111,12 +110,8 @@ typedef	struct	s_win
 	double		ratio;
 }	t_win;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
-	//int			column;
-	//int			row;
-	//double		distance;
-	//int			direction;
 	int			side;
 	int			height;
 	double		cam_x;
@@ -128,14 +123,10 @@ typedef struct	s_ray
 	int			step_y;
 	t_pos		side_dist;
 	t_pos		delta_dist;
-	t_pos		line_start;
-	t_pos		line_end;
 	double		wall_dist;
-	//t_pos		floor_wall;
-	//t_pos		c_floor;
 }				t_ray;
 
-typedef struct	s_game
+typedef struct s_game
 {
 	t_data	data;
 	void	*mlx;
@@ -156,19 +147,18 @@ int		ft_error_exit(t_error error_type, char *msg, t_game *game);
 int		ft_free_tab(char **tab);
 int		ft_free_game(t_game *game);
 int		ft_free_data(t_data*data);
-int		ft_kill_win(t_game *game);
-void	ft_free_mlx(t_game *game);
+
 /* utilities utils.c */
 void	ft_set_pos(t_pos *pos, double X, double Y);
+int		ft_check_inset(char *line, char *set);
 /* file parsing parser.c */
 int		ft_read_file(t_game *game, char *arg);
 /* parser utilities parser_utils.c */
 int		ft_check_file(char *path);
 char	**ft_tabdup_addline(char **tab, char *line, int size);
-int		ft_check_inset(char *line, char *set);
 int		ft_check_map(char **map, t_data *data);
 /* game engine game.c */
-int 	ft_game(t_game game);
+int		ft_game(t_game game);
 /* mlx init init_mlx.c */
 int		ft_init_mlx(t_game *game);
 /* make image draw.c */
@@ -178,4 +168,7 @@ void	ft_draw(t_game game);
 void	ft_raycast(t_game *game, int x);
 /* engine utilities game_utils.c */
 void	ft_pixel_put(t_img *img, t_pos pos, int color);
+/* free mlx management free_mlx.c*/
+int		ft_kill_win(t_game *game);
+void	ft_free_mlx(t_game *game);
 #endif

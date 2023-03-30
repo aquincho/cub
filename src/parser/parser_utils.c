@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:50:20 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/29 14:29:25 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 10:13:32 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,6 @@ char	**ft_tabdup_addline(char **tab, char *line, int size)
 	return (result);
 }
 
-int	ft_check_inset(char *line, char *set)
-{
-	int		i;
-	int		j;
-	bool	not_in_set;
-
-	i = 0;
-	while (line[i])
-	{
-		not_in_set = true;
-		j = 0;
-		while (set[j])
-		{
-			if (line[i] == set[j])
-				not_in_set = false;
-			j++;
-		}
-		if (not_in_set)
-			return (EXIT_FAILURE);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
 void	ft_start_pos(t_data *data, int i, int j)
 {
 	data->start_pos.x = i;
@@ -98,7 +74,7 @@ void	ft_start_pos(t_data *data, int i, int j)
 int	ft_check_map(char **map, t_data *data)
 {
 	int	i;
-	int j;
+	int	j;
 	int	nb_perso;
 
 	nb_perso = 0;
@@ -106,18 +82,17 @@ int	ft_check_map(char **map, t_data *data)
 	while (map[i])
 	{
 		j = 0;
-		while ( j < (int)ft_strlen((map[i])))
+		while (j < (int)ft_strlen((map[i])))
 		{
-			
 			while (j < (int)ft_strlen((map[i])) && map[i][j] == ' ')
 			{
-				if ((i > 0 
+				if ((i > 0
 					&& !(map[i - 1][j] == ' ' || map[i - 1][j] == '1'))
 					|| (i < data->height - 1
 					&& !(map[i + 1][j] == ' ' || map[i + 1][j] == '1'))
-					|| (map[i][j - 1] 
+					|| (map[i][j - 1]
 					&& !(map[i][j - 1] == ' ' || map[i][j - 1] == '1'))
-					|| (map[i][j + 1] 
+					|| (map[i][j + 1]
 					&& !(map[i][j + 1] == ' ' || map[i][j + 1] == '1')))
 					return (EXIT_FAILURE);
 				j++;

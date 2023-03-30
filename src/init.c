@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/10 12:58:31 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:24:34 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_color	ft_init_color(int n)
 {
 	t_color	result;
-	
+
 	result.r = n;
 	result.g = n;
 	result.b = n;
@@ -39,6 +39,7 @@ static int	ft_init_map(t_data *data)
 	data->floor = ft_init_color(0);
 	return (EXIT_SUCCESS);
 }
+
 int	ft_init_game(t_game *game)
 {
 	game->exit_status = EXIT_SUCCESS;

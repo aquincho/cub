@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:30 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/17 10:54:34 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:25:52 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*ft_msg_error(t_error error_type)
 	else if (error_type == init_err)
 		return ("Cannot initialize game");
 	else if (error_type == file_err)
-		return("cannot read file: ");
+		return ("cannot read file: ");
 	else
 		return ("default error");
 }

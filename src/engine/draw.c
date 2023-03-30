@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:01:27 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 09:19:05 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:35:01 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ void	ft_init_draw(t_game *game)
 		ft_set_pos(&game->cam.plane, 0, -0.66);
 }
 
-
-
 void	ft_draw(t_game game)
 {
 	int		x;
-	int 	start;
-	int 	end;
+	int		start;
+	int		end;
 	int		i;
 	t_pos	posline;
 
@@ -50,7 +48,6 @@ void	ft_draw(t_game game)
 		i = start;
 		while (i < end)
 		{
-			
 			posline.y = i;
 			if (game.ray.side == 0)
 			{

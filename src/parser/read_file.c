@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:25:00 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 11:25:43 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:26:51 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int	ft_read_file(t_game *game, char *arg)
 	if (ft_strlen(arg) < 4
 		|| ft_strncmp((arg + ft_strlen(arg)- 4), ".cub", 4))
 	{
-		return (ft_error(file_err, " Wrong map format."));
+		return (ft_error(rd_file_err, " Wrong map format."));
 	}
 	game->data.name = ft_substr(arg, 0, ft_strlen(arg) - 4);
 	fd = open(arg, O_RDONLY);
 	if (fd < 1)
-		return (ft_error(file_err, arg));
+		return (ft_error(rd_file_err, arg));
 	if (ft_parser(fd, &game->data))
 		return (EXIT_FAILURE);
 	close(fd);

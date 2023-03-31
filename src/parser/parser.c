@@ -6,120 +6,94 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 11:47:44 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:20:52 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static int	ft_map_line(t_data *data, char **line, char **tmp)
+inline static int	ft_check_line_data(char *tmp)
 {
-	if (ft_check_inset(*line, MAP_CHAR))
-	{
-		free (*line);
-		return (EXIT_FAILURE);
-	}
-	data->height++;
-	if ((int)ft_strlen(*line) > data->width)
-		data->width = ft_strlen(*line);
-	tmp = ft_tabdup_addline(data->map, *line, data->height);
-	if (!tmp)
-		return (EXIT_FAILURE);
-	ft_free_tab(data->map);
-	data->map = ft_tabdup_addline(tmp, NULL, data->height);
-	if (!data->map)
+	if (ft_strncmp(tmp, "NO ", 3) && ft_strncmp(tmp, "SO ", 3)
+		&& ft_strncmp(tmp, "WE ", 3) && ft_strncmp(tmp, "EA ", 3)
+		&& ft_strncmp(tmp, "F ", 2) && ft_strncmp(tmp, "C ", 2)
+		&& (ft_strncmp(tmp, "1", 1) && ft_strncmp(tmp, " ", 1)))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_map(t_data *data, int fd, char **line)
+static int	ft_parse_line(t_data *data, char *tmp, int *used, int fd)
 {
-	char	**tmp;
-
-	tmp = NULL;
-	while (*line && (!ft_strncmp(*line, "1", 1) || !ft_strncmp(*line, " ", 1)))
-	{
-		if (ft_map_line(data, line, tmp))
-			return (EXIT_FAILURE);
-		ft_free_tab(tmp);
-		free(*line);
-		*line = get_next_line(fd);
-	}
-	if (ft_check_map(data->map, data))
-		return (EXIT_FAILURE);
+	if (ft_check_line_data(tmp))
+		return (ft_error(file_err, " Wrong data"));
+	if (!ft_strncmp(tmp, "NO ", 3)
+		&& ft_texture(&data->texture[north], tmp, &used[north]))
+		return (ft_error(file_err, " Cannot read north image file"));
+	if (!ft_strncmp(tmp, "SO ", 3)
+		&& ft_texture(&data->texture[south], tmp, &used[south]))
+		return (ft_error(file_err, " Cannot read south image file"));
+	if (!ft_strncmp(tmp, "WE ", 3)
+		&& ft_texture(&data->texture[west], tmp, &used[west]))
+		return (ft_error(file_err, " Cannot read west image file"));
+	if (!ft_strncmp(tmp, "EA ", 3)
+		&& ft_texture(&data->texture[east], tmp, &used[east]))
+		return (ft_error(file_err, " Cannot read east image file"));
+	if (!ft_strncmp(tmp, "C ", 2)
+		&& ft_color(&data->ceil, tmp, &used[ceil_c]))
+		return (ft_error(file_err, " Cannot read ceil color"));
+	if (!ft_strncmp(tmp, "F ", 2)
+		&& ft_color(&data->ceil, tmp, &used[floor_c]))
+		return (ft_error(file_err, " Cannot read floor color"));
+	if (((!ft_strncmp(tmp, "1", 1) || !ft_strncmp(tmp, " ", 1))
+			&& ft_map(data, fd, &tmp)))
+		return (ft_error(file_err, " Cannot read map"));
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_texture(char **texture, char *line)
+inline static void	ft_init_used(int *used)
 {
-	char	**tmp;
+	int	i;
 
-	tmp = ft_split(line, ' ');
-	if (tmp[1])
-		*texture = ft_strdup(tmp[1]);
-	texture[0][ft_strlen(*texture) - 1] = '\0';
-	ft_free_tab(tmp);
-	if (ft_check_file(*texture))
-	{
-		free (line);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
-static int	ft_color(t_color *color, char *line)
-{
-	char	**tmp;
-	int		i;
-	int		status;
-
-	status = EXIT_SUCCESS;
-	while (!ft_isdigit(*line))
-		line++;
-	if (!*line)
-		status = EXIT_FAILURE;
-	tmp = ft_split(line, ',');
 	i = 0;
-	while (tmp[i])
+	while (i < 7)
+	{
+		used[i] = 0;
 		i++;
-	if (i != 3)
-		status = EXIT_FAILURE;
-	color->r = ft_atoi(tmp[0]);
-	color->g = ft_atoi(tmp[1]);
-	color->b = ft_atoi(tmp[2]);
-	ft_free_tab(tmp);
-	if (status)
-		free (line);
-	return (status);
+	}
+}
+
+inline static void	ft_empty_lines(char **tmp, int fd)
+{
+	while (*tmp && !ft_strncmp(*tmp, "\n", 1))
+	{
+		free (*tmp);
+		*tmp = get_next_line(fd);
+	}
 }
 
 int	ft_parser(int fd, t_data *data)
 {
 	char	*tmp;
+	int		nb_data;
+	int		used[7];
 
+	nb_data = 0;
+	ft_init_used(used);
 	tmp = get_next_line(fd);
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp, "NO", 2) && ft_texture(&data->texture[north], tmp))
-			return (ft_error(file_err, " Cannot read north image file"));
-		else if (!ft_strncmp(tmp, "SO", 2) && ft_texture(&data->texture[south], tmp))
-			return (ft_error(file_err, " Cannot read south image file"));
-		else if (!ft_strncmp(tmp, "WE", 2) && ft_texture(&data->texture[west], tmp))
-			return (ft_error(file_err, " Cannot read west image file"));
-		else if (!ft_strncmp(tmp, "EA", 2) && ft_texture(&data->texture[east], tmp))
-			return (ft_error(file_err, " Cannot read east image file"));
-		else if (!ft_strncmp(tmp, "C", 1) && ft_color(&data->ceil, tmp))
-			return (ft_error(file_err, " Cannot read color"));
-		else if (!ft_strncmp(tmp, "F", 1) && ft_color(&data->floor, tmp))
-			return (ft_error(file_err, " Cannot read color"));
-		else if ((!ft_strncmp(tmp, "1", 1) || !ft_strncmp(tmp, " ", 1))
-			&& ft_map(data, fd, &tmp))
-			return (ft_error(file_err, " Cannot parse map"));
+		ft_empty_lines(&tmp, fd);
+		if (tmp && !ft_parse_line(data, tmp, used, fd))
+			nb_data++;
+		else if (tmp)
+			return (EXIT_FAILURE);
 		if (tmp)
 			free(tmp);
 		tmp = get_next_line(fd);
 	}
 	if (tmp)
 		free(tmp);
-	return (0);
+	if (nb_data != 7)
+		return (ft_error(file_err, " Missing data"));
+	return (EXIT_SUCCESS);
 }

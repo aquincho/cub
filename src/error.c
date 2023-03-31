@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:30 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 09:25:52 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:35:40 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ static char	*ft_msg_error(t_error error_type)
 		return ("Invalid number of arguments");
 	else if (error_type == init_err)
 		return ("Cannot initialize game");
-	else if (error_type == file_err)
+	else if (error_type == rd_file_err)
 		return ("cannot read file: ");
+	else if (error_type == file_err)
+		return ("File error: ");
 	else
 		return ("default error");
 }

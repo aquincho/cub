@@ -6,7 +6,7 @@
 #    By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/03/30 11:26:11 by aquincho         ###   ########.fr        #
+#    Updated: 2023/03/31 12:36:46 by aquincho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ MAIN_FILES = main.c init.c free.c error.c utils.c
 MAIN_DIR=./
 MAIN=$(addprefix ${MAIN_DIR}, ${MAIN_FILES})
 
-PARSER_FILES= read_file.c parser.c parser_check.c parser_utils.c
+PARSER_FILES= read_file.c parser.c parser_check.c parser_utils.c parser_map.c
 PARSER_DIR=./parser/
 PARSER=$(addprefix ${PARSER_DIR}, ${PARSER_FILES})
 

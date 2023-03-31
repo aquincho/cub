@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 11:27:47 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:19:34 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ typedef enum e_error
 	sys_err,
 	init_err,
 	arg_err,
-	file_err,
+	rd_file_err,
+	file_err
 }	t_error;
 
 typedef enum e_texture
@@ -56,7 +57,9 @@ typedef enum e_texture
 	north,
 	south,
 	east,
-	west
+	west,
+	ceil_c,
+	floor_c,
 }	t_texture;
 
 typedef struct s_color
@@ -139,7 +142,6 @@ typedef struct s_game
 
 /* initialization init.c */
 int		ft_init_game(t_game *game);
-
 /* error management error.c*/
 int		ft_error(t_error error_type, char *msg);
 int		ft_error_exit(t_error error_type, char *msg, t_game *game);
@@ -157,6 +159,11 @@ int		ft_check_file(char *path);
 int		ft_parser(int fd, t_data *data);
 /* parser utilities parser_utils.c */
 char	**ft_tabdup_addline(char **tab, char *line, int size);
+int		ft_texture(char **texture, char *line, int *used);
+int		ft_color(t_color *color, char *line, int *used);
+void	ft_start_pos(t_data *data, int i, int j);
+/* map parsing parser_map.c */
+int		ft_map(t_data *data, int fd, char **line);
 /* parser checking parser_check.c*/
 int		ft_check_map(char **map, t_data *data);
 /* game engine game.c */

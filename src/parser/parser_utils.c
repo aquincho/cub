@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:50:20 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/31 14:20:19 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:18:49 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ int	ft_texture(char **texture, char *line, int *used)
 	return (EXIT_SUCCESS);
 }
 
+static int	ft_set_color(t_color *color, char **tmp)
+{
+	color->r = ft_atoi(tmp[0]);
+	color->g = ft_atoi(tmp[1]);
+	color->b = ft_atoi(tmp[2]);
+	if (color->r < 0 || color->r > 255 || color->g < 0 || color->g > 255
+		|| color->b < 0 || color->b > 255)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 int	ft_color(t_color *color, char *line, int *used)
 {
 	char	**tmp;
@@ -76,11 +87,11 @@ int	ft_color(t_color *color, char *line, int *used)
 	i = 0;
 	while (tmp[i])
 		i++;
-	if (i != 3)
+	if (i != 3 || ft_set_color(color, tmp))
+	{
+		ft_free_tab(tmp);
 		return (ft_error(file_err, " Cannot read color"));
-	color->r = ft_atoi(tmp[0]);
-	color->g = ft_atoi(tmp[1]);
-	color->b = ft_atoi(tmp[2]);
+	}
 	ft_free_tab(tmp);
 	return (EXIT_SUCCESS);
 }

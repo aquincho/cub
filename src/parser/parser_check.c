@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:50:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/31 15:11:25 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:10:24 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	ft_check_wall(char **map, t_data *data, int i)
 	return (EXIT_SUCCESS);
 }
 
-static int 	ft_check_zero(char **map, t_data *data, int i, int j)
+static int	ft_check_zero(char **map, t_data *data, int i, int j)
 {
 	if (map[i][j] == '0' && (map[i - 1][j] == ' ' || map[i + 1][j] == ' '
 		|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
@@ -87,6 +87,7 @@ static int	ft_check_line(char **map, t_data *data, int i, int *nb_perso)
 	}
 	return (EXIT_SUCCESS);
 }
+
 int	ft_check_map(char **map, t_data *data)
 {
 	int	i;

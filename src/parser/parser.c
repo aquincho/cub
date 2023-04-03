@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/31 14:20:52 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:09:39 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ static int	ft_parse_line(t_data *data, char *tmp, int *used, int fd)
 	return (EXIT_SUCCESS);
 }
 
-inline static void	ft_init_used(int *used)
+inline static void	ft_init_used(int *used, int *nb_data)
 {
 	int	i;
 
+	*nb_data = 0;
 	i = 0;
 	while (i < 7)
 	{
@@ -77,8 +78,7 @@ int	ft_parser(int fd, t_data *data)
 	int		nb_data;
 	int		used[7];
 
-	nb_data = 0;
-	ft_init_used(used);
+	ft_init_used(used, &nb_data);
 	tmp = get_next_line(fd);
 	while (tmp)
 	{
@@ -86,7 +86,10 @@ int	ft_parser(int fd, t_data *data)
 		if (tmp && !ft_parse_line(data, tmp, used, fd))
 			nb_data++;
 		else if (tmp)
+		{
+			free (tmp);
 			return (EXIT_FAILURE);
+		}
 		if (tmp)
 			free(tmp);
 		tmp = get_next_line(fd);

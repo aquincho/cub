@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/31 14:19:34 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/03 12:10:36 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_data
 	t_color	floor;
 	t_pos	start_pos;
 	t_pos	start_dir;
+	int		data_read;
 }	t_data;
 
 typedef struct s_cam
@@ -163,7 +164,7 @@ int		ft_texture(char **texture, char *line, int *used);
 int		ft_color(t_color *color, char *line, int *used);
 void	ft_start_pos(t_data *data, int i, int j);
 /* map parsing parser_map.c */
-int		ft_map(t_data *data, int fd, char **line);
+int		ft_map(t_data *data, int fd, char *line);
 /* parser checking parser_check.c*/
 int		ft_check_map(char **map, t_data *data);
 /* game engine game.c */

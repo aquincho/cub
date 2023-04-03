@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/03 09:09:39 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/03 12:25:58 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	ft_parse_line(t_data *data, char *tmp, int *used, int fd)
 		&& ft_color(&data->ceil, tmp, &used[floor_c]))
 		return (ft_error(file_err, " Cannot read floor color"));
 	if (((!ft_strncmp(tmp, "1", 1) || !ft_strncmp(tmp, " ", 1))
-			&& ft_map(data, fd, &tmp)))
+			&& ft_map(data, fd, tmp)))
 		return (ft_error(file_err, " Cannot read map"));
 	return (EXIT_SUCCESS);
 }
@@ -90,12 +90,19 @@ int	ft_parser(int fd, t_data *data)
 			free (tmp);
 			return (EXIT_FAILURE);
 		}
-		if (tmp)
+		printf("%s %d\n", tmp, data->data_read);
+		if (tmp && ft_strncmp(tmp, "\0", 1))
 			free(tmp);
-		tmp = get_next_line(fd);
+		if (!data->data_read)
+		{
+			//free (tmp);
+			tmp = get_next_line(fd);
+		}
+		else
+			tmp = NULL;
 	}
-	if (tmp)
-		free(tmp);
+	/*if (tmp)
+		free(tmp);*/
 	if (nb_data != 7)
 		return (ft_error(file_err, " Missing data"));
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 09:24:34 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/03 12:01:16 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	ft_init_map(t_data *data)
 	data->map = NULL;
 	data->width = 0;
 	data->height = 0;
+	data->data_read = 0;
 	ft_set_pos(&data->start_pos, 0, 0);
 	ft_set_pos(&data->start_dir, 0, 0);
 	i = -1;

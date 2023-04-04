@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/03 12:01:16 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:09:15 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ static t_color	ft_init_color(int n)
 	return (result);
 }
 
+inline static void	ft_init_data_read(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 7)
+	{
+		data->data_read[i] = 0;
+		i++;
+	}
+}
+
 static int	ft_init_map(t_data *data)
 {
 	int	i;
@@ -30,7 +42,8 @@ static int	ft_init_map(t_data *data)
 	data->map = NULL;
 	data->width = 0;
 	data->height = 0;
-	data->data_read = 0;
+	ft_init_data_read(data);
+	data->map_done = false;
 	ft_set_pos(&data->start_pos, 0, 0);
 	ft_set_pos(&data->start_dir, 0, 0);
 	i = -1;

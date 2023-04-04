@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:17:05 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/03 12:03:47 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:30:44 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,23 @@ void ft_print_map(t_game game)
 	printf("pos %f %f dir %f %f", game.data.start_pos.x, game.data.start_pos.y,
 		game.data.start_dir.x, game.data.start_dir.y);
 }
-#include <stdio.h>
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
-	int		i;
 
+	printf("Start\n");
 	if (argc < 2)
 		return (ft_error(arg_err, NULL));
 	if (ft_init_game(&game))
 		return (ft_error(init_err, " Cannot initialize game"));
-	i = 0;
-	while (argv[++i])
+	if (ft_read_file(&game, argv[1]))
 	{
-		if (ft_read_file(&game, argv[i]))
-		{
-			ft_free_game(&game);
-			return (EXIT_FAILURE);
-		}
-		ft_print_map(game);
-		//ft_game(game);
+		ft_free_game(&game);
+		return (EXIT_FAILURE);
 	}
-	printf("je free\n");
-	//ft_free_game(&game);
+	ft_print_map(game);
+	//ft_game(game);
+	ft_free_game(&game);
 	return (EXIT_SUCCESS);
 }

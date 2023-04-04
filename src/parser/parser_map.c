@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 12:34:58 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/03 12:26:12 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/04 10:19:24 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,17 @@ int	ft_map(t_data *data, int fd, char *line)
 		if (ft_map_line(data, line, &tmp))
 		{
 			free(line);
+			line = NULL;
 			return (EXIT_FAILURE);
 		}
 		ft_free_tab(tmp);
 		free(line);
 		line = get_next_line(fd);
 	}
-	
-	/*if (*line)
-	{
-		free (*line);
-		*line = NULL;
-	}*/
+	if (line)
+		free (line);
+	data->map_done = true;
 	if (ft_check_map(data->map, data))
 		return (EXIT_FAILURE);
-	
-	data->data_read = 1;
 	return (EXIT_SUCCESS);
 }

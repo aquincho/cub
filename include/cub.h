@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/03 12:10:36 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:01:15 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ typedef struct s_data
 	t_color	floor;
 	t_pos	start_pos;
 	t_pos	start_dir;
-	int		data_read;
+	int		data_read[7];
+	bool	map_done;
 }	t_data;
 
 typedef struct s_cam

@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:50:20 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/03 09:18:49 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/04 10:07:38 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int	ft_texture(char **texture, char *line, int *used)
 	texture[0][ft_strlen(*texture) - 1] = '\0';
 	ft_free_tab(tmp);
 	if (ft_check_file(*texture))
-	{
-		free (line);
 		return (ft_error(file_err, " Cannot read image file"));
-	}
 	return (EXIT_SUCCESS);
 }
 

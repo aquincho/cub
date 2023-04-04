@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/04 09:01:15 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/04 12:11:04 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,26 +109,28 @@ typedef struct s_img
 
 typedef struct s_win
 {
-	void		*ptr;
-	t_pos		size;
-	t_pos		half;
-	double		ratio;
+	void	*ptr;
+	t_pos	size;
+	t_pos	half;
+	double	ratio;
 }	t_win;
 
 typedef struct s_ray
 {
-	int			side;
-	int			height;
-	double		cam_x;
-	t_pos		ray_pos;
-	t_pos		dir;
-	int			map_x;
-	int			map_y;
-	int			step_x;
-	int			step_y;
-	t_pos		side_dist;
-	t_pos		delta_dist;
-	double		wall_dist;
+	int		side;
+	int		height;
+	double	cam_x;
+	t_pos	ray_pos;
+	t_pos	dir;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	t_pos	side_dist;
+	t_pos	delta_dist;
+	double	wall_dist;
+	double	move_speed;
+	double	rot_speed;
 }				t_ray;
 
 typedef struct s_game
@@ -174,7 +176,7 @@ int		ft_game(t_game game);
 int		ft_init_mlx(t_game *game);
 /* make image draw.c */
 void	ft_init_draw(t_game *game);
-void	ft_draw(t_game game);
+int		ft_draw(t_game *game);
 /* raycasting raycast.c*/
 void	ft_raycast(t_game *game, int x);
 /* engine utilities game_utils.c */

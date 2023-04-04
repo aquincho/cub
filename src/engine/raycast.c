@@ -6,13 +6,30 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 08:56:12 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 09:33:37 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/04 10:36:15 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-inline static void	ft_init_ray_step(t_game *game)
+inline static void	ft_init_ray_step_y(t_game *game)
+{
+	if (game->ray.dir.y < 0)
+	{
+		game->ray.step_y = -1;
+		game->ray.side_dist.y = (game->cam.pos.y - game->ray.map_y)
+			* game->ray.delta_dist.y;
+	}
+	else
+	{
+		game->ray.step_y = 1;
+		game->ray.side_dist.y = (game->ray.map_y + 1.0
+				- game->cam.pos.y)
+			* game->ray.delta_dist.y;
+	}
+}
+
+inline static void	ft_init_ray_step_x(t_game *game)
 {
 	if (game->ray.dir.x < 0)
 	{
@@ -27,19 +44,7 @@ inline static void	ft_init_ray_step(t_game *game)
 				- game->cam.pos.x)
 			* game->ray.delta_dist.x;
 	}
-	if (game->ray.dir.y < 0)
-	{
-		game->ray.step_y = -1;
-		game->ray.side_dist.y = (game->cam.pos.y - game->ray.map_y)
-			* game->ray.delta_dist.y;
-	}
-	else
-	{
-		game->ray.step_y = 1;
-		game->ray.side_dist.y = (game->ray.map_y + 1.0
-				- game->cam.pos.y)
-			* game->ray.delta_dist.y;
-	}
+	ft_init_ray_step_y(game);
 }
 
 inline static void	ft_init_ray(t_game *game, int x)
@@ -57,7 +62,7 @@ inline static void	ft_init_ray(t_game *game, int x)
 		game->ray.delta_dist.y = fabs(1 / game->ray.dir.y);
 	else
 		game->ray.delta_dist.y = 0;
-	ft_init_ray_step(game);
+	ft_init_ray_step_x(game);
 }
 
 inline static void	ft_dda(t_game *game)

@@ -6,7 +6,7 @@
 #    By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/03/31 12:36:46 by aquincho         ###   ########.fr        #
+#    Updated: 2023/04/04 11:55:29 by aquincho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ PARSER_FILES= read_file.c parser.c parser_check.c parser_utils.c parser_map.c
 PARSER_DIR=./parser/
 PARSER=$(addprefix ${PARSER_DIR}, ${PARSER_FILES})
 
-ENGINE_FILES= game.c init_mlx.c game_utils.c draw.c raycast.c free_mlx.c
+ENGINE_FILES= game.c init_mlx.c game_utils.c draw.c raycast.c free_mlx.c \
+move.c
 ENGINE_DIR=./engine/
 ENGINE=$(addprefix ${ENGINE_DIR}, ${ENGINE_FILES})
 

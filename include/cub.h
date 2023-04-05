@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/05 15:55:55 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:29:06 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ typedef struct s_ray
 	t_pos	side_dist;
 	t_pos	delta_dist;
 	double	wall_dist;
+	t_pos	wall_start;
+	t_pos	wall_end;
 	t_tex	tex_type;
 	double	tex_step;
 	double	tex_wall_x;

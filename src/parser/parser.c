@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/04 10:20:41 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:19:58 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	ft_parse_line(t_data *data, char *tmp, int fd)
 		&& ft_color(&data->ceil, tmp, &data->data_read[ceil_c]))
 		return (ft_error(file_err, " Cannot read ceil color"));
 	if (!ft_strncmp(tmp, "F ", 2)
-		&& ft_color(&data->ceil, tmp, &data->data_read[floor_c]))
+		&& ft_color(&data->floor, tmp, &data->data_read[floor_c]))
 		return (ft_error(file_err, " Cannot read floor color"));
 	if (((!ft_strncmp(tmp, "1", 1) || !ft_strncmp(tmp, " ", 1))
 			&& ft_map(data, fd, tmp)))

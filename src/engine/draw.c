@@ -6,68 +6,104 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:01:27 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/04 11:48:27 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:59:42 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-void	ft_init_draw(t_game *game)
+/*
+static void	ft_init_wall(t_game *game)
 {
-	ft_set_pos(&game->cam.pos, game->data.start_pos.x, game->data.start_pos.y);
-	ft_set_pos(&game->cam.dir, game->data.start_dir.x, game->data.start_dir.y);
-	if (game->data.start_dir.y == 1)
-		ft_set_pos(&game->cam.plane, -0.66, 0);
-	else if (game->data.start_dir.y == -1)
-		ft_set_pos(&game->cam.plane, 0.66, 0);
-	else if (game->data.start_dir.x == 1)
-		ft_set_pos(&game->cam.plane, 0, 0.66);
-	else if (game->data.start_dir.x == -1)
-		ft_set_pos(&game->cam.plane, 0, -0.66);
-	game->ray.move_speed = 0.1;
-	game->ray.rot_spped = 0.033 * 1.8;
+	if (game->ray.side == 0)
+	{
+		if (game->ray.dir.x < 0)
+			game->ray.tex_type = north;
+		else
+			game->ray.tex_type = south;
+		game->ray.tex_wall_x = game->cam.pos.y + game->ray.wall_dist
+			* game->ray.dir.y;
+	}
+	if (game->ray.side == 1)
+	{
+		if (game->ray.dir.x < 0)
+			game->ray.tex_type = east;
+		else
+			game->ray.tex_type = west;
+		game->ray.tex_wall_x = game->cam.pos.x + game->ray.wall_dist
+			* game->ray.dir.x;
+	}
+	game->ray.tex_wall_x -= floor((game->ray.tex_wall_x));
+	game->ray.tex_pos.x = (int)(game->ray.tex_wall_x
+		* game->texture[game->ray.tex_type].width);
+	if ((game->ray.side == 0 && game->ray.dir.x > 0)
+		|| (game->ray.side == 1 && game->ray.dir.x < 0))
+		game->ray.tex_pos.x = game->texture[game->ray.tex_type].width
+			- game->ray.tex_pos.x - 1;
+}*/
+
+void	ft_draw_wall(t_game *game, t_pos pos)
+{
+	/*ft_init_wall(game);
+	game->ray.tex_pos.y = (int)((pos.y * 2 - game->win.size.y
+		+ game->ray.height));
+	ft_pixel_put(game->img.ptr, pos, ft_get_tex_color(&game->texture[game->ray.tex_type],
+		&game->ray.tex_pos));*/
+	
+	if (game->ray.side == 0)
+	{
+		if (game->ray.dir.x < 0)
+			ft_pixel_put(&game->img, pos, 0x00FF0000);
+		else
+			ft_pixel_put(&game->img, pos, 0x000000FF);
+	}
+	else
+	{
+		if (game->ray.dir.y < 0)
+			ft_pixel_put(&game->img, pos, 0x0000FF00);
+		else
+			ft_pixel_put(&game->img, pos, 0x00FF00FF);
+	}
 }
 
+void	ft_draw_column(t_game *game, int x)
+{
+	int		start;
+	int		end;
+	t_pos	pos;
+	int		i;
+
+	pos.x = x;
+	start = -game->ray.height / 2 + game->win.size.y /2;
+	if (start < 0)
+		start = 0;
+	end = game->ray.height / 2 + game->win.size.y / 2;
+	if (end >= game->win.size.y)
+		end = game->win.size.y - 1;
+	i = 0;
+	while (i < game->win.size.y)
+	{
+		pos.y = i;
+		if (i < start)
+			ft_pixel_put(&game->img, pos, ft_rgb_to_int(game->data.ceil.r,
+				game->data.ceil.g, game->data.ceil.b));
+		else if (i < end)
+			ft_draw_wall(game, pos);
+		else
+			ft_pixel_put(&game->img, pos, ft_rgb_to_int(game->data.floor.r,
+				game->data.floor.g, game->data.floor.b));
+		i++;
+	}
+}
 
 int	ft_draw(t_game *game)
 {
 	int		x;
-	int		start;
-	int		end;
-	int		i;
-	t_pos	posline;
 
 	x = 0;
 	while (x < game->win.size.x)
 	{
 		ft_raycast(game, x);
-		start = -game->ray.height / 2 + game->win.size.y / 2;
-		if (start < 0)
-			start = 0;
-		end = game->ray.height / 2 + game->win.size.y / 2;
-		if (end > game->win.size.y)
-			end = game->win.size.y - 1;
-		posline.x = x;
-		i = start;
-		while (i < end)
-		{
-			posline.y = i;
-			if (game->ray.side == 0)
-			{
-				if (game->ray.dir.x < 0)
-					ft_pixel_put(&game->img, posline, 0x00FF0000);
-				else
-					ft_pixel_put(&game->img, posline, 0x000000FF);
-			}
-			else
-			{
-				if (game->ray.dir.y < 0)
-					ft_pixel_put(&game->img, posline, 0x0000FF00);
-				else
-					ft_pixel_put(&game->img, posline, 0x00FF00FF);
-			}
-			i++;
-		}
+		ft_draw_column(game, x);
 		x++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win.ptr, game->img.ptr, 0, 0);

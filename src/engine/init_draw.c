@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mlx.c                                         :+:      :+:    :+:   */
+/*   init_draw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:45:41 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/04 11:40:41 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:59:14 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,42 @@ int	ft_init_mlx(t_game *game)
 	game->img.addr = mlx_get_data_addr(game->img.ptr,
 			&game->img.bpp, &game->img.line_len, &game->img.line_len);
 	return (0);
+}
+
+static void	ft_get_texture(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < NB_TEXTURES)
+	{
+		game->texture[i].width = TEX_SIZE;
+		game->texture[i].height = TEX_SIZE;
+		game->texture[i].ptr = mlx_xpm_file_to_image(game->mlx,
+			game->data.texture[i],	&game->texture[i].width,
+			&game->texture[i].height);
+		game->texture[i].addr = mlx_get_data_addr(game->texture[i].ptr,
+			&game->texture[i].bpp, &game->texture[i].line_len,
+			&game->texture[i].endian);
+		i++;
+	}
+}
+
+void	ft_init_draw(t_game *game)
+{
+	ft_set_pos(&game->cam.pos, game->data.start_pos.x, game->data.start_pos.y);
+	ft_set_pos(&game->cam.dir, game->data.start_dir.x, game->data.start_dir.y);
+	game->data.map[(int)game->data.start_pos.x]
+		[(int)game->data.start_pos.y] = '0';
+	if (game->data.start_dir.y == 1)
+		ft_set_pos(&game->cam.plane, -0.66, 0);
+	else if (game->data.start_dir.y == -1)
+		ft_set_pos(&game->cam.plane, 0.66, 0);
+	else if (game->data.start_dir.x == 1)
+		ft_set_pos(&game->cam.plane, 0, 0.66);
+	else if (game->data.start_dir.x == -1)
+		ft_set_pos(&game->cam.plane, 0, -0.66);
+	game->cam.move_speed = 0.1;
+	game->cam.rot_speed = 0.033;
+	ft_get_texture(game);
 }

@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:17:05 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/04 09:30:44 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:20:12 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	ft_print_map(game);
-	//ft_game(game);
+	ft_game(game);
 	ft_free_game(&game);
 	return (EXIT_SUCCESS);
 }

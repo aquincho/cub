@@ -6,27 +6,14 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 08:56:12 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/30 09:33:37 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:25:54 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-inline static void	ft_init_ray_step(t_game *game)
+inline static void	ft_init_ray_step_y(t_game *game)
 {
-	if (game->ray.dir.x < 0)
-	{
-		game->ray.step_x = -1;
-		game->ray.side_dist.x = (game->cam.pos.x - game->ray.map_x)
-			* game->ray.delta_dist.x;
-	}
-	else
-	{
-		game->ray.step_x = 1;
-		game->ray.side_dist.x = (game->ray.map_x + 1.0
-				- game->cam.pos.x)
-			* game->ray.delta_dist.x;
-	}
 	if (game->ray.dir.y < 0)
 	{
 		game->ray.step_y = -1;
@@ -42,6 +29,24 @@ inline static void	ft_init_ray_step(t_game *game)
 	}
 }
 
+inline static void	ft_init_ray_step_x(t_game *game)
+{
+	if (game->ray.dir.x < 0)
+	{
+		game->ray.step_x = -1;
+		game->ray.side_dist.x = (game->cam.pos.x - game->ray.map_x)
+			* game->ray.delta_dist.x;
+	}
+	else
+	{
+		game->ray.step_x = 1;
+		game->ray.side_dist.x = (game->ray.map_x + 1.0
+				- game->cam.pos.x)
+			* game->ray.delta_dist.x;
+	}
+	ft_init_ray_step_y(game);
+}
+
 inline static void	ft_init_ray(t_game *game, int x)
 {
 	game->ray.cam_x = 2 * x / (game->win.size.x) - 1;
@@ -52,12 +57,12 @@ inline static void	ft_init_ray(t_game *game, int x)
 	if (game->ray.dir.x != 0)
 		game->ray.delta_dist.x = fabs(1 / game->ray.dir.x);
 	else
-		game->ray.delta_dist.x = 0;
+		game->ray.delta_dist.x = 1000000;
 	if (game->ray.dir.y != 0)
 		game->ray.delta_dist.y = fabs(1 / game->ray.dir.y);
 	else
-		game->ray.delta_dist.y = 0;
-	ft_init_ray_step(game);
+		game->ray.delta_dist.y = 1000000;
+	ft_init_ray_step_x(game);
 }
 
 inline static void	ft_dda(t_game *game)

@@ -7,7 +7,7 @@ WE     ./textures/wall_3.xpm
 
 F    220,  100  , 12
 
-C 225,30,042
+C 42,42,42
 
 EA ./textures/wall_4.xpm
 

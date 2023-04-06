@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/04 09:01:15 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:29:06 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef enum e_error
 	file_err
 }	t_error;
 
-typedef enum e_texture
+typedef enum e_tex
 {
 	north,
 	south,
@@ -60,7 +60,7 @@ typedef enum e_texture
 	west,
 	ceil_c,
 	floor_c,
-}	t_texture;
+}	t_tex;
 
 typedef struct s_color
 {
@@ -96,6 +96,8 @@ typedef struct s_cam
 	t_pos	dir;
 	t_pos	plane;
 	int		height;
+	double	move_speed;
+	double	rot_speed;
 }	t_cam;
 
 typedef struct s_img
@@ -107,39 +109,57 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_texture
+{
+	void	*ptr;
+	char	*addr;
+	int		height;
+	int		width;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_texture;
+
 typedef struct s_win
 {
-	void		*ptr;
-	t_pos		size;
-	t_pos		half;
-	double		ratio;
+	void	*ptr;
+	t_pos	size;
+	t_pos	half;
+	double	ratio;
 }	t_win;
 
 typedef struct s_ray
 {
-	int			side;
-	int			height;
-	double		cam_x;
-	t_pos		ray_pos;
-	t_pos		dir;
-	int			map_x;
-	int			map_y;
-	int			step_x;
-	int			step_y;
-	t_pos		side_dist;
-	t_pos		delta_dist;
-	double		wall_dist;
+	int		side;
+	int		height;
+	double	cam_x;
+	t_pos	ray_pos;
+	t_pos	dir;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	t_pos	side_dist;
+	t_pos	delta_dist;
+	double	wall_dist;
+	t_pos	wall_start;
+	t_pos	wall_end;
+	t_tex	tex_type;
+	double	tex_step;
+	double	tex_wall_x;
+	t_pos	tex_pos;
 }				t_ray;
 
 typedef struct s_game
 {
-	t_data	data;
-	void	*mlx;
-	t_win	win;
-	t_img	img;
-	t_cam	cam;
-	t_ray	ray;
-	int		exit_status;
+	t_data		data;
+	void		*mlx;
+	t_win		win;
+	t_img		img;
+	t_texture	texture[NB_TEXTURES];
+	t_cam		cam;
+	t_ray		ray;
+	int			exit_status;
 }	t_game;
 
 /* initialization init.c */
@@ -170,15 +190,17 @@ int		ft_map(t_data *data, int fd, char *line);
 int		ft_check_map(char **map, t_data *data);
 /* game engine game.c */
 int		ft_game(t_game game);
-/* mlx init init_mlx.c */
+/* mlx and drawing init init_draw.c */
 int		ft_init_mlx(t_game *game);
-/* make image draw.c */
 void	ft_init_draw(t_game *game);
-void	ft_draw(t_game game);
+/* make image draw.c */
+int		ft_draw(t_game *game);
 /* raycasting raycast.c*/
 void	ft_raycast(t_game *game, int x);
 /* engine utilities game_utils.c */
 void	ft_pixel_put(t_img *img, t_pos pos, int color);
+int		ft_rgb_to_int(int r, int g, int b);
+int		ft_get_tex_color(t_texture *tex, t_pos *pos);
 /* free mlx management free_mlx.c*/
 int		ft_kill_win(t_game *game);
 void	ft_free_mlx(t_game *game);

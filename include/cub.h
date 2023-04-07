@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/05 16:29:06 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/07 10:34:15 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,11 @@ void	ft_raycast(t_game *game, int x);
 void	ft_pixel_put(t_img *img, t_pos pos, int color);
 int		ft_rgb_to_int(int r, int g, int b);
 int		ft_get_tex_color(t_texture *tex, t_pos *pos);
+/* movement management move.c*/
+int		ft_move_up_down(t_game *game, int direction);
+int		ft_move_left_right(t_game *game, int direction);
+int		ft_rotate_left(t_game *game);
+int		ft_rotate_right(t_game *game);
 /* free mlx management free_mlx.c*/
 int		ft_kill_win(t_game *game);
 void	ft_free_mlx(t_game *game);

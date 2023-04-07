@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:50:20 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/04 10:07:38 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:16:06 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,18 +99,18 @@ void	ft_start_pos(t_data *data, int i, int j)
 	data->start_pos.y = j;
 	if (data->map[i][j] == 'N' || data->map[i][j] == 'S')
 	{
-		data->start_dir.x = 0;
+		data->start_dir.y = 0;
 		if (data->map[i][j] == 'N')
-			data->start_dir.y = -1;
+			data->start_dir.x = -1;
 		else
-			data->start_dir.y = 1;
+			data->start_dir.x = 1;
 	}
 	else if (data->map[i][j] == 'W' || data->map[i][j] == 'E')
 	{
-		data->start_dir.y = 0;
+		data->start_dir.x = 0;
 		if (data->map[i][j] == 'E')
-			data->start_dir.x = 1;
+			data->start_dir.y = 1;
 		else
-			data->start_dir.x = -1;
+			data->start_dir.y = -1;
 	}
 }

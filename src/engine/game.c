@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:53:26 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/07 10:35:29 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:47:44 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ static int	ft_keypress(int keycode, t_game *game)
 
 static int	ft_keyrelease(int keycode, t_game *game)
 {
-	int player_move;
+	int	player_move;
 
 	if (keycode == K_A || keycode == K_D || keycode == K_W || keycode == K_S
 		|| keycode == K_LT || keycode == K_RT)
-		{
-			player_move = 0;
-			ft_update(game);
-		}
+	{
+		player_move = 0;
+		ft_update(game);
+	}
 	return (player_move);
 }
 

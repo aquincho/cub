@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/07 10:34:15 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:18:06 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ typedef struct s_ray
 	t_tex	tex_type;
 	double	tex_step;
 	double	tex_wall_x;
+	t_pos	tex_pos_int;
 	t_pos	tex_pos;
 }				t_ray;
 

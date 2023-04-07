@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:45:41 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/05 13:59:14 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:43:42 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static void	ft_get_texture(t_game *game)
 		game->texture[i].width = TEX_SIZE;
 		game->texture[i].height = TEX_SIZE;
 		game->texture[i].ptr = mlx_xpm_file_to_image(game->mlx,
-			game->data.texture[i],	&game->texture[i].width,
-			&game->texture[i].height);
+				game->data.texture[i], &game->texture[i].width,
+				&game->texture[i].height);
 		game->texture[i].addr = mlx_get_data_addr(game->texture[i].ptr,
-			&game->texture[i].bpp, &game->texture[i].line_len,
-			&game->texture[i].endian);
+				&game->texture[i].bpp, &game->texture[i].line_len,
+				&game->texture[i].endian);
 		i++;
 	}
 }
@@ -54,8 +54,8 @@ void	ft_init_draw(t_game *game)
 {
 	ft_set_pos(&game->cam.pos, game->data.start_pos.x, game->data.start_pos.y);
 	ft_set_pos(&game->cam.dir, game->data.start_dir.x, game->data.start_dir.y);
-	game->data.map[(int)game->data.start_pos.x]
-		[(int)game->data.start_pos.y] = '0';
+	game->data.map[(int)game->data.start_pos.x][(int)game->data.start_pos.y]
+		= '0';
 	if (game->data.start_dir.y == 1)
 		ft_set_pos(&game->cam.plane, -0.66, 0);
 	else if (game->data.start_dir.y == -1)

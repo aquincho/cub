@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:26:41 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/05 15:58:42 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/07 10:10:59 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_get_tex_color(t_texture *tex, t_pos *pos)
 	if (pos->x >= 0 && pos->x < tex->width
 		&& pos->y >= 0 && pos->y < tex->height)
 	{
-		return (*(int*)(tex->ptr
+		return (*(int*)(tex->addr
 			+ (4 * tex->width * (int)pos->y)
 			+ (4 * (int)pos->x)));
 	}

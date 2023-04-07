@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/07 12:18:06 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:24:18 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define WIN_WIDTH	640
 # define WIN_HEIGHT	480
 # define ANGLE_FOV	60
+# define MOVE_SPEED	0.1
+# define ROT_SPEED	0.033
 
 typedef enum e_error
 {

@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:45:41 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/07 11:43:42 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/07 12:24:31 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_init_draw(t_game *game)
 		ft_set_pos(&game->cam.plane, 0, 0.66);
 	else if (game->data.start_dir.x == -1)
 		ft_set_pos(&game->cam.plane, 0, -0.66);
-	game->cam.move_speed = 0.1;
-	game->cam.rot_speed = 0.033;
+	game->cam.move_speed = MOVE_SPEED;
+	game->cam.rot_speed = ROT_SPEED;
 	ft_get_texture(game);
 }

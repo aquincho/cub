@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 17:44:38 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:35:41 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	ft_init_map(t_data *data)
 	ft_set_pos(&data->start_pos, 0, 0);
 	ft_set_pos(&data->start_dir, 0, 0);
 	i = -1;
-	while (++i < 4)
+	while (++i < NB_TEXTURES)
 		data->texture[i] = NULL;
 	data->ceil = ft_init_color(0);
 	data->floor = ft_init_color(0);
@@ -56,9 +56,20 @@ static int	ft_init_map(t_data *data)
 
 int	ft_init_game(t_game *game)
 {
+	int	i;
+
+	i = 0;
+	game->mlx = NULL;
+	game->win.ptr = NULL;
+	game->img.ptr = NULL;
+	while (i < NB_TEXTURES)
+	{
+		game->texture[i].ptr = NULL;
+		game->texture[i].addr = NULL;
+		i++;
+	}
 	game->exit_status = EXIT_SUCCESS;
 	if (ft_init_map(&game->data))
 		return (ft_display_error(sys_err, NULL));
-	game->mlx = NULL;
 	return (game->exit_status);
 }

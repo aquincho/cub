@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:53:26 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 17:24:22 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:19:36 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ static int	ft_keyrelease(int keycode, t_game *game)
 int	ft_game(t_game game)
 {
 	if (ft_init_mlx(&game))
-		ft_error_exit(init_err, "Cannot initialize mlx", &game);
+		ft_error_exit(init_err, "Cannot initialize mlx", &game, EXIT_FAILURE);
 	if (ft_init_draw(&game) == EXIT_FAILURE)
-		ft_error_exit(init_err, "Cannot initialize draw", &game);
+		ft_error_exit(init_err, "Cannot initialize draw", &game, EXIT_FAILURE);
 	ft_draw(&game);
-	mlx_hook(game.win.ptr, 17, 1L << 17, ft_kill_win, &game);
+	mlx_hook(game.win.ptr, 17, 1L << 17, clean_exit, &game);
 	mlx_hook(game.win.ptr, 2, 1L << 0, ft_keypress, &game);
 	mlx_hook(game.win.ptr, 3, 1L << 1, ft_keyrelease, &game);
 	mlx_loop_hook(game.mlx, ft_draw, &game);

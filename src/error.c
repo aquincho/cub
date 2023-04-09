@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:30 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 17:44:25 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:08:22 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ int	ft_display_error(t_error error_type, char *msg)
 	return (EXIT_FAILURE);
 }
 
-int	ft_error_exit(t_error error_type, char *msg, t_game *game)
+int	ft_error_exit(t_error error_type, char *msg, t_game *game, int return_code)
 {
 	ft_display_error(error_type, msg);
-	ft_kill_win(game);
-	exit (error_type);
+	if (game)
+		clean_exit(game);
+	exit (return_code);
 }

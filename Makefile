@@ -6,7 +6,7 @@
 #    By: troberts <troberts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/04/09 17:07:56 by troberts         ###   ########.fr        #
+#    Updated: 2023/04/09 18:19:57 by troberts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ LIBS_FLAGS		= $(LIBFT_FLAGS) $(MLX_FLAGS)
 
 SRC_DIR		= src/
 
-MAIN = main.c init.c free.c error.c utils.c
+MAIN = main.c init.c free.c error.c utils.c clean.c
 
 PARSER_FILES= read_file.c parser.c parser_check.c parser_utils.c parser_map.c
 PARSER_DIR=parser/

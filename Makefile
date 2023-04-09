@@ -6,28 +6,28 @@
 #    By: troberts <troberts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/04/09 18:19:57 by troberts         ###   ########.fr        #
+#    Updated: 2023/04/10 01:18:26 by troberts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= cub
+NAME		= cub3D
 
 #CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -g
 RM			= rm -f
 
 INC_DIR 	= include
-INC_FLAGS = -I${INC_DIR} -I${LIBFT_INC_DIR} -I$(MLX_DIR)
+INC_FLAGS = -I$(INC_DIR) -I$(LIBFT_INC_DIR) -I$(MLX_DIR)
 
 LIBFT_DIR 	= libft
 LIBFT_INC_DIR = $(LIBFT_DIR)/includes
-MAKE_LIBFT 	= make -C ${LIBFT_DIR}
-LIBFT 		= ${MAKE_LIBFT}
-LIBFT_FLAGS = -L${LIBFT_DIR} -lft
+MAKE_LIBFT 	= make -C $(LIBFT_DIR)
+LIBFT 		= $(MAKE_LIBFT)
+LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
 
 
 MLX_DIR 		= mlx
-MAKE_MLX	 	= make -C ${MLX_DIR}
+MAKE_MLX	 	= make -C $(MLX_DIR)
 MLX				= $(MAKE_MLX)
 MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lm -lXext -lX11 -lz
 
@@ -39,38 +39,40 @@ MAIN = main.c init.c free.c error.c utils.c clean.c
 
 PARSER_FILES= read_file.c parser.c parser_check.c parser_utils.c parser_map.c
 PARSER_DIR=parser/
-PARSER=$(addprefix ${PARSER_DIR}, ${PARSER_FILES})
+PARSER=$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 
 ENGINE_FILES= game.c init_draw.c game_utils.c draw.c raycast.c free_mlx.c \
 move.c
 ENGINE_DIR=engine/
-ENGINE=$(addprefix ${ENGINE_DIR}, ${ENGINE_FILES})
+ENGINE=$(addprefix $(ENGINE_DIR), $(ENGINE_FILES))
 
 SRC_FILES= $(MAIN) $(PARSER) $(ENGINE)
 
 OBJ_DIR=obj/
-OBJ_FILES=${SRC_FILES:%.c=${OBJ_DIR}%.o}
+OBJ_FILES=$(SRC_FILES:%.c=$(OBJ_DIR)%.o)
 
 all: $(NAME)
 
-${NAME}: ${OBJ_FILES}
+bonus: $(NAME)
+
+$(NAME): $(OBJ_FILES)
 	$(MAKE_LIBFT)
 	$(MAKE_MLX)
-	${CC} ${CFLAGS} ${INC_FLAGS} ${OBJ_FILES} ${LIBS_FLAGS} -o ${NAME}
+	$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJ_FILES) $(LIBS_FLAGS) -o $(NAME)
 
-${OBJ_FILES}: ${OBJ_DIR}%.o : $(SRC_DIR)%.c
+$(OBJ_FILES): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	mkdir -p $(@D)
-	${CC} ${CFLAGS} ${INC_FLAGS} -c $^ -o $@
+	$(CC) $(CFLAGS) $(INC_FLAGS) -c $^ -o $@
 
 clean:
-	${RM} -r ${OBJ_DIR}
-	${MAKE_LIBFT} clean
+	$(RM) -r $(OBJ_DIR)
+	$(MAKE_LIBFT) clean
 	$(MAKE_MLX) clean
 	@echo "\033[33;32m=== cub3d object files deleted \t\t\t\tDONE\e[0m"
 
 fclean:	clean
 	$(RM) $(NAME)
-	${MAKE_LIBFT} fclean
+	$(MAKE_LIBFT) fclean
 	@echo "\033[33;32m=== cub3d bin file deleted \t\t\tDONE\e[0m"
 
 re: fclean all

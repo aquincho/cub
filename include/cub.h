@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 18:21:51 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:49:02 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,14 @@
 # include <errno.h>
 # include <math.h>
 # include <stdbool.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 //# include <mlx.h>
 # include "../mlx/mlx.h"
 
 # define NB_TEXTURES	4
 # define MAP_CHAR	" 01NSWE\n"
 # define DIRECTIONS	"NSWE"
-
-# define K_ESC	65307
-# define K_LT	65361
-# define K_UP	65362
-# define K_RT	65363
-# define K_DN	65364
-# define K_W	119
-# define K_S	115
-# define K_A	97
-# define K_D	100
 
 # define TEX_SIZE	64
 # define WIN_WIDTH	640

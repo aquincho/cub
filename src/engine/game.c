@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:53:26 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/07 11:47:44 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:24:22 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,9 @@ static int	ft_keyrelease(int keycode, t_game *game)
 int	ft_game(t_game game)
 {
 	if (ft_init_mlx(&game))
-		return (ft_error_exit(init_err, "Cannot initialize mlx", &game));
-	ft_init_draw(&game);
+		ft_error_exit(init_err, "Cannot initialize mlx", &game);
+	if (ft_init_draw(&game) == EXIT_FAILURE)
+		ft_error_exit(init_err, "Cannot initialize draw", &game);
 	ft_draw(&game);
 	mlx_hook(game.win.ptr, 17, 1L << 17, ft_kill_win, &game);
 	mlx_hook(game.win.ptr, 2, 1L << 0, ft_keypress, &game);

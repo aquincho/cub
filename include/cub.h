@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/07 12:24:18 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:20:43 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ int		ft_check_map(char **map, t_data *data);
 int		ft_game(t_game game);
 /* mlx and drawing init init_draw.c */
 int		ft_init_mlx(t_game *game);
-void	ft_init_draw(t_game *game);
+int		ft_init_draw(t_game *game);
 /* make image draw.c */
 int		ft_draw(t_game *game);
 /* raycasting raycast.c*/

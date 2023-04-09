@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_draw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:45:41 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/07 12:24:31 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:25:21 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_init_mlx(t_game *game)
 	return (0);
 }
 
-static void	ft_get_texture(t_game *game)
+static int	ft_get_texture(t_game *game)
 {
 	int	i;
 
@@ -43,14 +43,17 @@ static void	ft_get_texture(t_game *game)
 		game->texture[i].ptr = mlx_xpm_file_to_image(game->mlx,
 				game->data.texture[i], &game->texture[i].width,
 				&game->texture[i].height);
+		if (!game->texture[i].ptr)
+			return (EXIT_FAILURE);
 		game->texture[i].addr = mlx_get_data_addr(game->texture[i].ptr,
 				&game->texture[i].bpp, &game->texture[i].line_len,
 				&game->texture[i].endian);
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }
 
-void	ft_init_draw(t_game *game)
+int	ft_init_draw(t_game *game)
 {
 	ft_set_pos(&game->cam.pos, game->data.start_pos.x, game->data.start_pos.y);
 	ft_set_pos(&game->cam.dir, game->data.start_dir.x, game->data.start_dir.y);
@@ -66,5 +69,7 @@ void	ft_init_draw(t_game *game)
 		ft_set_pos(&game->cam.plane, 0, -0.66);
 	game->cam.move_speed = MOVE_SPEED;
 	game->cam.rot_speed = ROT_SPEED;
-	ft_get_texture(game);
+	if (ft_get_texture(game) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

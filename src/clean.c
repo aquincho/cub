@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 17:53:52 by troberts          #+#    #+#             */
-/*   Updated: 2023/04/09 18:32:55 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:47:42 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,7 @@ int	clean_window_display(t_game *game, int return_code)
 
 int	clean_exit(t_game *game)
 {
-	int	i;
-
-	i = 0;
-	while (i < NB_TEXTURES)
-	{
-		if (game->texture[i].ptr)
-			mlx_destroy_image(game->mlx, game->texture[i].ptr);
-		i++;
-	}
 	ft_free_data(&game->data);
-	clean_window_display(game, EXIT_SUCCESS);
+	ft_free_mlx(game);
 	exit(EXIT_SUCCESS);
 }

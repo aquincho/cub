@@ -3,24 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+         #
+#    By: troberts <troberts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/04/05 13:34:31 by aquincho         ###   ########.fr        #
+#    Updated: 2023/04/09 17:07:56 by troberts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= cub
 
-CC			= gcc
+#CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -g
 RM			= rm -f
-AR			= ar rcs
 
-INC_DIR 	= ./include
+INC_DIR 	= include
 INC_FLAGS = -I${INC_DIR} -I${LIBFT_INC_DIR} -I$(MLX_DIR)
 
-LIBFT_DIR 	= ./libft
+LIBFT_DIR 	= libft
 LIBFT_INC_DIR = $(LIBFT_DIR)/includes
 MAKE_LIBFT 	= make -C ${LIBFT_DIR}
 LIBFT 		= ${MAKE_LIBFT}
@@ -34,24 +33,22 @@ MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lm -lXext -lX11 -lz
 
 LIBS_FLAGS		= $(LIBFT_FLAGS) $(MLX_FLAGS)
 
-SRC_DIR		= ./src/
+SRC_DIR		= src/
 
-MAIN_FILES = main.c init.c free.c error.c utils.c
-MAIN_DIR=./
-MAIN=$(addprefix ${MAIN_DIR}, ${MAIN_FILES})
+MAIN = main.c init.c free.c error.c utils.c
 
 PARSER_FILES= read_file.c parser.c parser_check.c parser_utils.c parser_map.c
-PARSER_DIR=./parser/
+PARSER_DIR=parser/
 PARSER=$(addprefix ${PARSER_DIR}, ${PARSER_FILES})
 
 ENGINE_FILES= game.c init_draw.c game_utils.c draw.c raycast.c free_mlx.c \
 move.c
-ENGINE_DIR=./engine/
+ENGINE_DIR=engine/
 ENGINE=$(addprefix ${ENGINE_DIR}, ${ENGINE_FILES})
 
 SRC_FILES= $(MAIN) $(PARSER) $(ENGINE)
 
-OBJ_DIR=./obj/
+OBJ_DIR=obj/
 OBJ_FILES=${SRC_FILES:%.c=${OBJ_DIR}%.o}
 
 all: $(NAME)
@@ -69,12 +66,12 @@ clean:
 	${RM} -r ${OBJ_DIR}
 	${MAKE_LIBFT} clean
 	$(MAKE_MLX) clean
-	@echo "\033[33;32m=== so_long object files deleted \t\t\t\tDONE\e[0m"
+	@echo "\033[33;32m=== cub3d object files deleted \t\t\t\tDONE\e[0m"
 
 fclean:	clean
 	$(RM) $(NAME)
 	${MAKE_LIBFT} fclean
-	@echo "\033[33;32m=== so_long bin file deleted \t\t\tDONE\e[0m"
+	@echo "\033[33;32m=== cub3d bin file deleted \t\t\tDONE\e[0m"
 
 re: fclean all
 

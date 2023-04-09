@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/05 13:46:38 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:44:38 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_init_game(t_game *game)
 {
 	game->exit_status = EXIT_SUCCESS;
 	if (ft_init_map(&game->data))
-		return (ft_error(sys_err, NULL));
+		return (ft_display_error(sys_err, NULL));
 	game->mlx = NULL;
 	return (game->exit_status);
 }

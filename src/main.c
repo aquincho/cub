@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:17:05 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 17:24:37 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:44:38 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	printf("Start\n");
-	if (argc < 2)
-		return (ft_error(arg_err, NULL));
+	if (argc != 2)
+		return (ft_display_error(arg_err, NULL));
 	if (ft_init_game(&game))
-		return (ft_error(init_err, " Cannot initialize game"));
+		return (ft_display_error(init_err, " Cannot initialize game"));
 	if (ft_read_file(&game, argv[1]))
 	{
 		ft_free_game(&game);
@@ -51,6 +51,6 @@ int	main(int argc, char **argv)
 	}
 	ft_print_map(game);
 	ft_game(game);
-	ft_free_game(&game);
+	ft_kill_win(&game);
 	return (EXIT_SUCCESS);
 }

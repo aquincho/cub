@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:50:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/03 09:10:24 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:44:38 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	ft_check_line(char **map, t_data *data, int i, int *nb_perso)
 	int	j;
 
 	if (ft_check_wall(map, data, i))
-		return (ft_error(file_err, "Wall incomplete"));
+		return (ft_display_error(file_err, "Wall incomplete"));
 	j = 0;
 	while (j < (int)ft_strlen((map[i])))
 	{
@@ -79,7 +79,7 @@ static int	ft_check_line(char **map, t_data *data, int i, int *nb_perso)
 			if (*nb_perso < 1)
 				(*nb_perso)++;
 			else
-				return (ft_error(file_err, "Too many start positions"));
+				return (ft_display_error(file_err, "Too many start positions"));
 		}
 		if (ft_check_zero(map, data, i, j))
 			return (EXIT_FAILURE);
@@ -102,6 +102,6 @@ int	ft_check_map(char **map, t_data *data)
 		i++;
 	}
 	if (nb_perso != 1)
-		return (ft_error(file_err, "missing start position"));
+		return (ft_display_error(file_err, "missing start position"));
 	return (EXIT_SUCCESS);
 }

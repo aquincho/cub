@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 17:20:43 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:50:29 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ typedef struct s_game
 /* initialization init.c */
 int		ft_init_game(t_game *game);
 /* error management error.c*/
-int		ft_error(t_error error_type, char *msg);
+int		ft_display_error(t_error error_type, char *msg);
 int		ft_error_exit(t_error error_type, char *msg, t_game *game);
 /* free memory management free.c */
 int		ft_free_tab(char **tab);

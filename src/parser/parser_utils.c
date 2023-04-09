@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:50:20 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/07 12:16:06 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:44:38 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_texture(char **texture, char *line, int *used)
 	char	**tmp;
 
 	if (*used > 0)
-		return (ft_error(file_err, " same texture twice"));
+		return (ft_display_error(file_err, " same texture twice"));
 	(*used) += 1;
 	tmp = ft_split(line, ' ');
 	if (tmp[1])
@@ -50,7 +50,7 @@ int	ft_texture(char **texture, char *line, int *used)
 	texture[0][ft_strlen(*texture) - 1] = '\0';
 	ft_free_tab(tmp);
 	if (ft_check_file(*texture))
-		return (ft_error(file_err, " Cannot read image file"));
+		return (ft_display_error(file_err, " Cannot read image file"));
 	return (EXIT_SUCCESS);
 }
 
@@ -71,23 +71,23 @@ int	ft_color(t_color *color, char *line, int *used)
 	int		i;
 
 	if (*used > 0)
-		return (ft_error(file_err, " same color twice"));
+		return (ft_display_error(file_err, " same color twice"));
 	(*used)++;
 	while (!ft_isdigit(*line))
 		line++;
 	if (!*line)
-		return (ft_error(file_err, " Cannot read color"));
+		return (ft_display_error(file_err, " Cannot read color"));
 	if (ft_strchr(line, ','))
 		tmp = ft_split(line, ',');
 	else
-		return (ft_error(file_err, " Cannot read color"));
+		return (ft_display_error(file_err, " Cannot read color"));
 	i = 0;
 	while (tmp[i])
 		i++;
 	if (i != 3 || ft_set_color(color, tmp))
 	{
 		ft_free_tab(tmp);
-		return (ft_error(file_err, " Cannot read color"));
+		return (ft_display_error(file_err, " Cannot read color"));
 	}
 	ft_free_tab(tmp);
 	return (EXIT_SUCCESS);

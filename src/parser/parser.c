@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/05 13:19:58 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:44:38 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,28 @@ inline static int	ft_check_line_data(char *tmp)
 static int	ft_parse_line(t_data *data, char *tmp, int fd)
 {
 	if (ft_check_line_data(tmp))
-		return (ft_error(file_err, " Wrong data"));
+		return (ft_display_error(file_err, " Wrong data"));
 	if (!ft_strncmp(tmp, "NO ", 3)
 		&& ft_texture(&data->texture[north], tmp, &data->data_read[north]))
-		return (ft_error(file_err, " Cannot read north image file"));
+		return (ft_display_error(file_err, " Cannot read north image file"));
 	if (!ft_strncmp(tmp, "SO ", 3)
 		&& ft_texture(&data->texture[south], tmp, &data->data_read[south]))
-		return (ft_error(file_err, " Cannot read south image file"));
+		return (ft_display_error(file_err, " Cannot read south image file"));
 	if (!ft_strncmp(tmp, "WE ", 3)
 		&& ft_texture(&data->texture[west], tmp, &data->data_read[west]))
-		return (ft_error(file_err, " Cannot read west image file"));
+		return (ft_display_error(file_err, " Cannot read west image file"));
 	if (!ft_strncmp(tmp, "EA ", 3)
 		&& ft_texture(&data->texture[east], tmp, &data->data_read[east]))
-		return (ft_error(file_err, " Cannot read east image file"));
+		return (ft_display_error(file_err, " Cannot read east image file"));
 	if (!ft_strncmp(tmp, "C ", 2)
 		&& ft_color(&data->ceil, tmp, &data->data_read[ceil_c]))
-		return (ft_error(file_err, " Cannot read ceil color"));
+		return (ft_display_error(file_err, " Cannot read ceil color"));
 	if (!ft_strncmp(tmp, "F ", 2)
 		&& ft_color(&data->floor, tmp, &data->data_read[floor_c]))
-		return (ft_error(file_err, " Cannot read floor color"));
+		return (ft_display_error(file_err, " Cannot read floor color"));
 	if (((!ft_strncmp(tmp, "1", 1) || !ft_strncmp(tmp, " ", 1))
 			&& ft_map(data, fd, tmp)))
-		return (ft_error(file_err, " Cannot read map"));
+		return (ft_display_error(file_err, " Cannot read map"));
 	return (EXIT_SUCCESS);
 }
 
@@ -93,6 +93,6 @@ int	ft_parser(int fd, t_data *data)
 		ft_map_done(data, fd, &tmp);
 	}
 	if (nb_data != 7)
-		return (ft_error(file_err, " Missing data"));
+		return (ft_display_error(file_err, " Missing data"));
 	return (EXIT_SUCCESS);
 }

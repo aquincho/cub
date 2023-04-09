@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:30 by aquincho          #+#    #+#             */
-/*   Updated: 2023/03/31 10:35:40 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:44:25 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,29 @@ static char	*ft_msg_error(t_error error_type)
 	else if (error_type == init_err)
 		return ("Cannot initialize game");
 	else if (error_type == rd_file_err)
-		return ("cannot read file: ");
+		return ("Cannot read file: ");
 	else if (error_type == file_err)
 		return ("File error: ");
 	else
-		return ("default error");
+		return ("Error");
 }
 
-int	ft_error(t_error error_type, char *msg)
+int	ft_display_error(t_error error_type, char *msg)
 {
 	char	*msg_err;
 
 	msg_err = ft_msg_error(error_type);
-	(void)write(2, "cub3d: error: ", 14);
-	(void)write(2, msg_err, ft_strlen(msg_err));
+	ft_putstr_fd("cub3d: error: ", STDERR_FILENO);
+	ft_putstr_fd(msg_err, STDERR_FILENO);
 	if (msg)
-		(void)write(2, msg, ft_strlen(msg));
-	(void)write(2, "\n", 1);
-	return (error_type);
+		ft_putstr_fd(msg, STDERR_FILENO);
+	ft_putendl_fd("", STDERR_FILENO);
+	return (EXIT_FAILURE);
 }
 
 int	ft_error_exit(t_error error_type, char *msg, t_game *game)
 {
-	char	*msg_err;
-
-	msg_err = ft_msg_error(error_type);
-	(void)write(2, "cub3d: error: ", 14);
-	(void)write(2, msg_err, ft_strlen(msg_err));
-	if (msg)
-		(void)write(2, msg, ft_strlen(msg));
-	(void)write(2, "\n", 1);
-	ft_free_game(game);
+	ft_display_error(error_type, msg);
+	ft_kill_win(game);
 	exit (error_type);
 }

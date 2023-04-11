@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 08:56:12 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/05 13:25:54 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/11 10:54:38 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ inline static void	ft_init_ray(t_game *game, int x)
 	if (game->ray.dir.x != 0)
 		game->ray.delta_dist.x = fabs(1 / game->ray.dir.x);
 	else
-		game->ray.delta_dist.x = 1000000;
+		game->ray.delta_dist.x = FLT_MAX;
 	if (game->ray.dir.y != 0)
 		game->ray.delta_dist.y = fabs(1 / game->ray.dir.y);
 	else
-		game->ray.delta_dist.y = 1000000;
+		game->ray.delta_dist.y = FLT_MAX;
 	ft_init_ray_step_x(game);
 }
 

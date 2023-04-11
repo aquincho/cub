@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 18:49:02 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/11 10:53:43 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <math.h>
 # include <stdbool.h>
+# include <float.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
 //# include <mlx.h>
@@ -33,7 +34,7 @@
 # define WIN_WIDTH	640
 # define WIN_HEIGHT	480
 # define ANGLE_FOV	60
-# define MOVE_SPEED	0.1
+# define MOVE_SPEED	0.11
 # define ROT_SPEED	0.033
 
 typedef enum e_error

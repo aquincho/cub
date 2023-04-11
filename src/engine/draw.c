@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:01:27 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/07 11:57:19 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/11 10:02:01 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ft_init_wall(t_game *game)
 	game->ray.tex_pos_int.x = (int)(game->ray.tex_wall_x
 			* game->texture[game->ray.tex_type].width);
 	if ((game->ray.side == 0 && game->ray.dir.x > 0)
-		|| (game->ray.side == 1 && game->ray.dir.x < 0))
+		|| (game->ray.side == 1 && game->ray.dir.y < 0))
 		game->ray.tex_pos_int.x = game->texture[game->ray.tex_type].width
 			- game->ray.tex_pos_int.x - 1;
 }

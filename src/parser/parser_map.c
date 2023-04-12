@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 12:34:58 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/04 10:19:24 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:28:28 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_map_line(t_data *data, char *line, char ***tmp)
 		return (EXIT_FAILURE);
 	data->height++;
 	if ((int)ft_strlen(line) > data->width)
-		data->width = ft_strlen(line);
+		data->width = ft_strlen(line) - 1;
 	*tmp = ft_tabdup_addline(data->map, line, data->height);
 	if (!(**tmp))
 		return (EXIT_FAILURE);

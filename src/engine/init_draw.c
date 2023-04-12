@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_draw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:45:41 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 17:25:21 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:08:19 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_init_mlx(t_game *game)
 	if (!game->img.ptr)
 		return (EXIT_FAILURE);
 	game->img.addr = mlx_get_data_addr(game->img.ptr,
-			&game->img.bpp, &game->img.line_len, &game->img.line_len);
+			&game->img.bpp, &game->img.line_len, &game->img.endian);
 	return (0);
 }
 

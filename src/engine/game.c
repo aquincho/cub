@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:53:26 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/12 09:39:18 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/12 10:08:35 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_update(t_game *game)
 	if (!game->img.ptr)
 		return (EXIT_FAILURE);
 	game->img.addr = mlx_get_data_addr(game->img.ptr,
-			&game->img.bpp, &game->img.line_len, &game->img.line_len);
+			&game->img.bpp, &game->img.line_len, &game->img.endian);
 	return (EXIT_SUCCESS);
 }
 

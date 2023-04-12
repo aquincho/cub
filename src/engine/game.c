@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:53:26 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 18:45:42 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/12 09:39:18 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ static int	ft_keypress(int keycode, t_game *game)
 	return (0);
 }
 
+static int	ft_mouse(int x, int y, t_game *game)
+{
+	if (x < game->mouse_x)
+		ft_rotate_left(game);
+	else
+		ft_rotate_right(game);
+	game->mouse_x = x;
+	(void)y;
+	return (EXIT_SUCCESS);
+}
+
 /* static int	ft_keyrelease(int keycode, t_game *game)
 {
 	int	player_move;
@@ -72,6 +83,7 @@ int	ft_game(t_game game)
 	mlx_hook(game.win.ptr, DestroyNotify, StructureNotifyMask, clean_exit,
 		&game);
 	mlx_hook(game.win.ptr, KeyPress, KeyPressMask, ft_keypress, &game);
+	mlx_hook(game.win.ptr, MotionNotify, PointerMotionMask, ft_mouse, &game);
 	mlx_loop_hook(game.mlx, ft_draw, &game);
 	mlx_loop(game.mlx);
 	return (EXIT_SUCCESS);

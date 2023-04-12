@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/11 10:53:43 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/12 09:31:17 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ typedef struct s_game
 	t_texture	texture[NB_TEXTURES];
 	t_cam		cam;
 	t_ray		ray;
+	int			mouse_x;
 	int			exit_status;
 }	t_game;
 

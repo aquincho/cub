@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 18:35:41 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/12 09:37:34 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	ft_init_game(t_game *game)
 		game->texture[i].addr = NULL;
 		i++;
 	}
+	game->mouse_x = 0;
 	game->exit_status = EXIT_SUCCESS;
 	if (ft_init_map(&game->data))
 		return (ft_display_error(sys_err, NULL));

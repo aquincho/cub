@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 08:56:12 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/11 10:54:38 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/12 11:42:50 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ inline static void	ft_dda(t_game *game)
 			game->ray.map_y += game->ray.step_y;
 			game->ray.side = 1;
 		}
-		if (game->data.map[game->ray.map_x][game->ray.map_y] != '0')
+		if (game->data.map[game->ray.map_y][game->ray.map_x] != '0')
 			hit = 1;
 	}
 }

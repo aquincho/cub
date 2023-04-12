@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:53:26 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/12 10:08:35 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:26:15 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ static int	ft_keypress(int keycode, t_game *game)
 	int	player_move;
 
 	player_move = 0;
- 	if (keycode == XK_Escape)
+	if (keycode == XK_Escape)
 		clean_exit(game);
+	if (keycode == XK_space)
+		game->show_minimap = !game->show_minimap;
 	if (keycode == XK_A || keycode == XK_a)
 		player_move = ft_move_left_right(game, 1);
 	else if (keycode == XK_D || keycode == XK_d)
@@ -51,7 +53,7 @@ static int	ft_keypress(int keycode, t_game *game)
 
 static int	ft_mouse(int x, int y, t_game *game)
 {
-	if (x < game->mouse_x)
+	if (x <= game->mouse_x)
 		ft_rotate_left(game);
 	else
 		ft_rotate_right(game);

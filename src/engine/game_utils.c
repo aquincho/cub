@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 09:26:41 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/12 10:56:28 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:25:36 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_pixel_put(t_img *img, t_pos pos, int color)
 {
 	*(int *)(img->addr
-		+ (img->line_len * (int)pos.y) + ((int)pos.x * img->bpp / 8))
+			+ (img->line_len * (int)pos.y) + ((int)pos.x * img->bpp / 8))
 		= color;
 }
 

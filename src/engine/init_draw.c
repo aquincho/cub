@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:45:41 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/12 10:08:19 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/12 14:09:56 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ int	ft_init_mlx(t_game *game)
 		return (EXIT_FAILURE);
 	game->img.addr = mlx_get_data_addr(game->img.ptr,
 			&game->img.bpp, &game->img.line_len, &game->img.endian);
+	game->img_minimap.ptr = mlx_new_image(game->mlx, ft_size_mmap(game).x,
+			ft_size_mmap(game).y);
+	if (!game->img_minimap.ptr)
+		return (EXIT_FAILURE);
+	game->img_minimap.addr = mlx_get_data_addr(game->img_minimap.ptr,
+			&game->img_minimap.bpp, &game->img_minimap.line_len,
+			&game->img_minimap.endian);
 	return (0);
 }
 
@@ -57,7 +64,7 @@ int	ft_init_draw(t_game *game)
 {
 	ft_set_pos(&game->cam.pos, game->data.start_pos.x, game->data.start_pos.y);
 	ft_set_pos(&game->cam.dir, game->data.start_dir.x, game->data.start_dir.y);
-	game->data.map[(int)game->data.start_pos.x][(int)game->data.start_pos.y]
+	game->data.map[(int)game->data.start_pos.y][(int)game->data.start_pos.x]
 		= '0';
 	if (game->data.start_dir.y == 1)
 		ft_set_pos(&game->cam.plane, -0.66, 0);
@@ -69,6 +76,7 @@ int	ft_init_draw(t_game *game)
 		ft_set_pos(&game->cam.plane, 0, -0.66);
 	game->cam.move_speed = MOVE_SPEED;
 	game->cam.rot_speed = ROT_SPEED;
+	game->show_minimap = false;
 	if (ft_get_texture(game) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

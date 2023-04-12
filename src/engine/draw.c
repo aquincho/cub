@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:01:27 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/11 10:02:01 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:32:10 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ static void	ft_init_wall(t_game *game)
 	if (game->ray.side == 0)
 	{
 		if (game->ray.dir.x < 0)
-			game->ray.tex_type = north;
+			game->ray.tex_type = west;
 		else
-			game->ray.tex_type = south;
+			game->ray.tex_type = east;
 		game->ray.tex_wall_x = game->cam.pos.y + game->ray.wall_dist
 			* game->ray.dir.y;
 	}
 	if (game->ray.side == 1)
 	{
 		if (game->ray.dir.y < 0)
-			game->ray.tex_type = east;
+			game->ray.tex_type = north;
 		else
-			game->ray.tex_type = west;
+			game->ray.tex_type = south;
 		game->ray.tex_wall_x = game->cam.pos.x + game->ray.wall_dist
 			* game->ray.dir.x;
 	}
@@ -100,5 +100,11 @@ int	ft_draw(t_game *game)
 		x++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win.ptr, game->img.ptr, 0, 0);
+	if (game->show_minimap)
+	{
+		ft_draw_minimap(game);
+		mlx_put_image_to_window(game->mlx, game->win.ptr,
+			game->img_minimap.ptr, 10, 10);
+	}
 	return (EXIT_SUCCESS);
 }

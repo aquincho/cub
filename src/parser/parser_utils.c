@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:50:20 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 17:44:38 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:12:41 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	**ft_tabdup_addline(char **tab, char *line, int size)
 	}
 	if (line)
 	{
-		line[ft_strlen(line) - 1] = '\0';
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
 		result[i] = ft_strdup(line);
 	}
 	else
@@ -95,22 +96,22 @@ int	ft_color(t_color *color, char *line, int *used)
 
 void	ft_start_pos(t_data *data, int i, int j)
 {
-	data->start_pos.x = i;
-	data->start_pos.y = j;
-	if (data->map[i][j] == 'N' || data->map[i][j] == 'S')
+	data->start_pos.x = j;
+	data->start_pos.y = i;
+	if (data->map[i][j] == 'W' || data->map[i][j] == 'E')
 	{
 		data->start_dir.y = 0;
-		if (data->map[i][j] == 'N')
+		if (data->map[i][j] == 'W')
 			data->start_dir.x = -1;
 		else
 			data->start_dir.x = 1;
 	}
-	else if (data->map[i][j] == 'W' || data->map[i][j] == 'E')
+	else if (data->map[i][j] == 'N' || data->map[i][j] == 'S')
 	{
 		data->start_dir.x = 0;
-		if (data->map[i][j] == 'E')
-			data->start_dir.y = 1;
-		else
+		if (data->map[i][j] == 'N')
 			data->start_dir.y = -1;
+		else
+			data->start_dir.y = 1;
 	}
 }

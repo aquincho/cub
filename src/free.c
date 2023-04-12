@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:16 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/11 10:02:45 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:25:08 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	ft_free_data(t_data *data)
 		free (data->name);
 	if (data->map)
 		ft_free_tab(data->map);
-	//if (data->texture)
 	ft_free_texture(data->texture);
 	return (0);
 }
@@ -61,7 +60,6 @@ int	ft_free_game(t_game *game)
 {
 	if (!game)
 		return (0);
-	//if (&game->data)
 	ft_free_data(&game->data);
 	return (0);
 }

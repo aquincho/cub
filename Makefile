@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: troberts <troberts@student.42.fr>          +#+  +:+       +#+         #
+#    By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/04/10 01:18:26 by troberts         ###   ########.fr        #
+#    Updated: 2023/04/12 13:33:37 by aquincho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ PARSER_DIR=parser/
 PARSER=$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 
 ENGINE_FILES= game.c init_draw.c game_utils.c draw.c raycast.c free_mlx.c \
-move.c
+move.c minimap.c
 ENGINE_DIR=engine/
 ENGINE=$(addprefix $(ENGINE_DIR), $(ENGINE_FILES))
 
@@ -59,6 +59,7 @@ $(NAME): $(OBJ_FILES)
 	$(MAKE_LIBFT)
 	$(MAKE_MLX)
 	$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJ_FILES) $(LIBS_FLAGS) -o $(NAME)
+	@echo "\033[33;32m=== cub3d compilation \t\t\tDONE\e[0m"
 
 $(OBJ_FILES): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	mkdir -p $(@D)

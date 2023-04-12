@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:17:05 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 18:33:33 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/12 12:54:32 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,13 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	printf("Start\n");
 	if (argc != 2)
 		ft_error_exit(arg_err, NULL, NULL, EXIT_FAILURE);
 	if (ft_init_game(&game))
 		ft_error_exit(init_err, NULL, &game, EXIT_FAILURE);
 	if (ft_read_file(&game, argv[1]))
 		ft_error_exit(rd_file_err, NULL, &game, EXIT_FAILURE);
-	//ft_print_map(game);
+	ft_print_map(game);
 	ft_game(game);
 	clean_exit(&game);
 	return (EXIT_SUCCESS);

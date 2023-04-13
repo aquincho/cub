@@ -42,7 +42,7 @@ PARSER_DIR=parser/
 PARSER=$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 
 ENGINE_FILES= game.c init_draw.c game_utils.c draw.c raycast.c free_mlx.c \
-move.c minimap.c
+move.c
 ENGINE_DIR=engine/
 ENGINE=$(addprefix $(ENGINE_DIR), $(ENGINE_FILES))
 

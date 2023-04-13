@@ -28,13 +28,6 @@ int	ft_init_mlx(t_game *game)
 		return (EXIT_FAILURE);
 	game->img.addr = mlx_get_data_addr(game->img.ptr,
 			&game->img.bpp, &game->img.line_len, &game->img.endian);
-	game->img_minimap.ptr = mlx_new_image(game->mlx, ft_size_mmap(game).x,
-			ft_size_mmap(game).y);
-	if (!game->img_minimap.ptr)
-		return (EXIT_FAILURE);
-	game->img_minimap.addr = mlx_get_data_addr(game->img_minimap.ptr,
-			&game->img_minimap.bpp, &game->img_minimap.line_len,
-			&game->img_minimap.endian);
 	return (0);
 }
 
@@ -76,7 +69,6 @@ int	ft_init_draw(t_game *game)
 		ft_set_pos(&game->cam.plane, 0, -0.66);
 	game->cam.move_speed = MOVE_SPEED;
 	game->cam.rot_speed = ROT_SPEED;
-	game->show_minimap = false;
 	if (ft_get_texture(game) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

@@ -68,7 +68,6 @@ int	ft_init_game(t_game *game)
 		game->texture[i].addr = NULL;
 		i++;
 	}
-	game->mouse_x = 0;
 	game->exit_status = EXIT_SUCCESS;
 	if (ft_init_map(&game->data))
 		return (ft_display_error(sys_err, NULL));

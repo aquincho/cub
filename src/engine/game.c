@@ -32,8 +32,6 @@ static int	ft_keypress(int keycode, t_game *game)
 	player_move = 0;
 	if (keycode == XK_Escape)
 		clean_exit(game);
-	if (keycode == XK_space)
-		game->show_minimap = !game->show_minimap;
 	if (keycode == XK_A || keycode == XK_a)
 		player_move = ft_move_left_right(game, 1);
 	else if (keycode == XK_D || keycode == XK_d)
@@ -49,17 +47,6 @@ static int	ft_keypress(int keycode, t_game *game)
 	if (player_move)
 		ft_update(game);
 	return (0);
-}
-
-static int	ft_mouse(int x, int y, t_game *game)
-{
-	if (x <= game->mouse_x)
-		ft_rotate_left(game);
-	else
-		ft_rotate_right(game);
-	game->mouse_x = x;
-	(void)y;
-	return (EXIT_SUCCESS);
 }
 
 /* static int	ft_keyrelease(int keycode, t_game *game)
@@ -85,7 +72,6 @@ int	ft_game(t_game game)
 	mlx_hook(game.win.ptr, DestroyNotify, StructureNotifyMask, clean_exit,
 		&game);
 	mlx_hook(game.win.ptr, KeyPress, KeyPressMask, ft_keypress, &game);
-	mlx_hook(game.win.ptr, MotionNotify, PointerMotionMask, ft_mouse, &game);
 	mlx_loop_hook(game.mlx, ft_draw, &game);
 	mlx_loop(game.mlx);
 	return (EXIT_SUCCESS);

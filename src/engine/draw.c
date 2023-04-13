@@ -100,11 +100,5 @@ int	ft_draw(t_game *game)
 		x++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win.ptr, game->img.ptr, 0, 0);
-	if (game->show_minimap)
-	{
-		ft_draw_minimap(game);
-		mlx_put_image_to_window(game->mlx, game->win.ptr,
-			game->img_minimap.ptr, 10, 10);
-	}
 	return (EXIT_SUCCESS);
 }

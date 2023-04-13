@@ -36,7 +36,6 @@
 # define ANGLE_FOV	60
 # define MOVE_SPEED	0.11
 # define ROT_SPEED	0.033
-# define MMAP_RATIO	8
 
 typedef enum e_error
 {
@@ -153,12 +152,9 @@ typedef struct s_game
 	void		*mlx;
 	t_win		win;
 	t_img		img;
-	t_img		img_minimap;
 	t_texture	texture[NB_TEXTURES];
 	t_cam		cam;
 	t_ray		ray;
-	bool		show_minimap;
-	int			mouse_x;
 	int			exit_status;
 }	t_game;
 

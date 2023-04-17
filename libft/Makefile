@@ -20,7 +20,7 @@ PRINTF_FUNCTIONS = ft_printf ft_process_conv ft_printutils ft_printxnbr \
 ft_printchar ft_printnbr ft_printptr ft_printunbr
 
 GNL_PATH = ./get_next_line/
-GNL_FUNCTIONS = get_next_line
+GNL_FUNCTIONS = get_next_line get_next_line_utils
 
 SRCS = $(addprefix $(SRCS_PATH), $(addsuffix .c, $(SRCS_FUNCTIONS)))
 BONUS_SRCS = $(addprefix $(BONUS_PATH), $(addsuffix .c, $(BONUS_FUNCTIONS)))

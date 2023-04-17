@@ -6,7 +6,7 @@
 /*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:17:43 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 17:44:38 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/17 19:05:37 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,9 @@ int	ft_parser(int fd, t_data *data)
 		ft_empty_lines(&tmp, fd);
 		if (tmp && !ft_parse_line(data, tmp, fd))
 			nb_data++;
-		else if (tmp)
+		else
 		{
-			if (!data->map_done)
-				free (tmp);
-			else
-				tmp = NULL;
+			free (tmp);
 			return (EXIT_FAILURE);
 		}
 		ft_map_done(data, fd, &tmp);

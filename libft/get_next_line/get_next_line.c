@@ -3,112 +3,102 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 10:24:59 by aquincho          #+#    #+#             */
-/*   Updated: 2023/02/27 12:42:47 by aquincho         ###   ########.fr       */
+/*   Created: 2023/04/17 19:13:58 by troberts          #+#    #+#             */
+/*   Updated: 2023/04/17 19:18:50 by troberts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
+#define GNL_BUFFER_SIZE 4096
 
-char	*ft_cpybuffer(char *buffer, char *buf_read)
+void		ft_bzero(void *s, size_t n);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
+char		*ft_strncpy_static(char *dest, const char *src, size_t n);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
+
+static size_t	get_len_of_line(char *buffer)
 {
-	char	*temp;
+	size_t	len;
 
-	temp = ft_strjoin(buffer, buf_read);
-	free(buffer);
-	return (temp);
+	len = 0;
+	while (buffer[len] != '\n' && buffer[len] != '\0')
+		len++;
+	if (buffer[len] == '\n')
+		len++;
+	return (len);
 }
 
-char	*ft_cutline(char *buffer)
+static ssize_t	get_read(int fd, char *buffer)
 {
+	ssize_t	len_read;
+
+	len_read = read(fd, buffer, GNL_BUFFER_SIZE);
+	if (len_read > 0)
+		buffer[len_read] = 0;
+	else
+		buffer[0] = 0;
+	return (len_read);
+}
+
+static void	*free_line_and_return_null(char *line)
+{
+	free(line);
+	return (NULL);
+}
+
+static char	*get_line(char *buffer, int fd, int *nl_found)
+{
+	ssize_t	len_read;
 	char	*line;
-	int		i;
+	size_t	len_line;
+	char	*buff_tmp;
 
-	i = 0;
-	if (!buffer || !buffer[i])
-		return (NULL);
-	while (buffer[i] != '\n' && buffer[i])
-		i++;
-	line = ft_calloc(i + 2, sizeof(char));
-	i = 0;
-	while (buffer[i] != '\n' && buffer[i])
+	if (ft_strlen(buffer) == 0)
 	{
-		line[i] = buffer[i];
-		i++;
-	}
-	if (buffer[i] && buffer[i] == '\n')
-		line[i++] = '\n';
-	line[i] = '\0';
-	return (line);
-}
-
-char	*ft_resize_buffer(char *buffer)
-{
-	char	*tmp;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	if (!buffer[i])
-	{
-		free(buffer);
-		return (NULL);
-	}
-	tmp = ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
-	i++;
-	j = 0;
-	while (buffer [i])
-	{
-		tmp[j] = buffer[i];
-		i++;
-		j++;
-	}
-	tmp[j] = '\0';
-	free(buffer);
-	return (tmp);
-}
-
-char	*ft_read(int fd, char *buffer)
-{
-	char	*buf_read;
-	int		bytes_read;
-
-	if (!buffer)
-		buffer = ft_calloc(1, sizeof(char));
-	buf_read = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	bytes_read = 1;
-	while (bytes_read > 0 && (buffer && !ft_strchr(buffer, '\n')))
-	{
-		bytes_read = read(fd, buf_read, BUFFER_SIZE);
-		if (bytes_read == -1)
-		{
-			free(buf_read);
-			free(buffer);
+		len_read = get_read(fd, buffer);
+		if (len_read <= 0)
 			return (NULL);
-		}
-		buf_read[bytes_read] = '\0';
-		buffer = ft_cpybuffer(buffer, buf_read);
 	}
-	free(buf_read);
-	return (buffer);
+	len_line = get_len_of_line(buffer);
+	if (buffer[len_line - 1] == '\n')
+		*nl_found = 1;
+	line = malloc(len_line + 1);
+	if (line == NULL)
+		return (NULL);
+	ft_strlcpy(line, buffer, len_line + 1);
+	buff_tmp = ft_strdup((buffer) + len_line);
+	if (buff_tmp == NULL)
+		return (free_line_and_return_null(line));
+	ft_strlcpy(buffer, buff_tmp, ft_strlen(buff_tmp) + 1);
+	free(buff_tmp);
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	buffer[GNL_BUFFER_SIZE + 1];
+	char		*line_old;
+	int			nl_found;
 	char		*line;
+	char		*new_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0)
 		return (NULL);
-	if (!buffer || (buffer && !ft_strchr(buffer, '\n')))
-		buffer = ft_read(fd, buffer);
-	if (!buffer)
+	nl_found = 0;
+	line = get_line(buffer, fd, &nl_found);
+	if (line == NULL)
 		return (NULL);
-	line = ft_cutline(buffer);
-	buffer = ft_resize_buffer(buffer);
+	while (nl_found == 0)
+	{
+		new_line = get_line(buffer, fd, &nl_found);
+		if (new_line == NULL)
+			return (line);
+		line_old = line;
+		line = ft_strjoin(line, new_line);
+		free(new_line);
+		free(line_old);
+	}
 	return (line);
 }

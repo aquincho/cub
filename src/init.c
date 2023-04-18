@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:23:57 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/12 09:37:34 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:11:52 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,17 @@ int	ft_init_game(t_game *game)
 	game->mlx = NULL;
 	game->win.ptr = NULL;
 	game->img.ptr = NULL;
+	game->img_minimap.ptr = NULL;
 	while (i < NB_TEXTURES)
 	{
 		game->texture[i].ptr = NULL;
 		game->texture[i].addr = NULL;
 		i++;
 	}
+	game->mouse_x = 0;
+	game->mmap_size.x = 0;
+	game->mmap_size.y = 0;
+	game->mmap_ratio = 1;
 	game->exit_status = EXIT_SUCCESS;
 	if (ft_init_map(&game->data))
 		return (ft_display_error(sys_err, NULL));

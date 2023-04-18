@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:26:45 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 18:27:12 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:10:58 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_free_mlx(t_game *game)
 
 	if (game->img.ptr)
 		mlx_destroy_image(game->mlx, game->img.ptr);
+	if (game->img_minimap.ptr)
+		mlx_destroy_image(game->mlx, game->img_minimap.ptr);
 	i = 0;
 	while (i < NB_TEXTURES)
 	{
@@ -26,9 +28,7 @@ void	ft_free_mlx(t_game *game)
 		i++;
 	}
 	if (game->win.ptr)
-	{
 		mlx_destroy_window(game->mlx, game->win.ptr);
-	}
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);

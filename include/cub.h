@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:08:09 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/12 14:09:38 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:16:16 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define ANGLE_FOV	60
 # define MOVE_SPEED	0.11
 # define ROT_SPEED	0.033
+# define MMAP_RATIO	8
 
 typedef enum e_error
 {
@@ -152,9 +153,14 @@ typedef struct s_game
 	void		*mlx;
 	t_win		win;
 	t_img		img;
+	t_img		img_minimap;
 	t_texture	texture[NB_TEXTURES];
 	t_cam		cam;
 	t_ray		ray;
+	bool		show_minimap;
+	t_pos		mmap_size;
+	int			mmap_ratio;
+	int			mouse_x;
 	int			exit_status;
 }	t_game;
 
@@ -210,5 +216,5 @@ int		ft_kill_win(t_game *game);
 void	ft_free_mlx(t_game *game);
 /* minimap.c */
 void	ft_draw_minimap(t_game *game);
-t_pos	ft_size_mmap(t_game *game);
+void	ft_size_mmap(t_game *game);
 #endif

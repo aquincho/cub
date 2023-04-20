@@ -1,81 +1,197 @@
-# **************************************************************************** #
+#*************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/13 09:46:38 by aquincho          #+#    #+#              #
-#    Updated: 2023/04/12 13:33:37 by aquincho         ###   ########.fr        #
+#            :::      ::::::::                                                 #
+#          :+:      :+:    :+:                                                 #
+#        +:+ +:+         +:+         Makefile v2.1                             #
+#      +#+  +:+       +#+                                                      #
+#    +#+#+#+#+#+   +#+               By: troberts <troberts@student.42.fr>     #
+#         #+#    #+#                                                           #
+#        ###   ########.fr                                                     #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= cub3D
+# **************************************************************************** #
+#                              VARIABLE REFERENCE                              #
+# **************************************************************************** #
 
-#CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -g
-RM			= rm -f
+NAME= cub3D
 
-INC_DIR 	= include
-INC_FLAGS = -I$(INC_DIR) -I$(LIBFT_INC_DIR) -I$(MLX_DIR)
+#CC= clang
+CFLAGS= -Wall -Werror -Wextra -g3 $(INCLUDE)
+LDFLAGS= -L$(MLX_DIR) -L$(LIBFT_DIR) -lmlx -lXext -lX11 -lm
 
-LIBFT_DIR 	= libft
-LIBFT_INC_DIR = $(LIBFT_DIR)/includes
-MAKE_LIBFT 	= make -C $(LIBFT_DIR)
-LIBFT 		= $(MAKE_LIBFT)
-LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
+INCLUDE = -I$(INCLUDE_DIR) -I$(LIBFT_DIR) -I$(LIBFT_INC) -I$(MLX_DIR)
 
+LIBFT_DIR= libft
+LIBFT_LIB= $(LIBFT_DIR)/libft.a
+LIBFT_INC= $(LIBFT_DIR)/includes
 
-MLX_DIR 		= mlx
-MAKE_MLX	 	= make -C $(MLX_DIR)
-MLX				= $(MAKE_MLX)
-MLX_FLAGS		= -L$(MLX_DIR) -lmlx -lm -lXext -lX11 -lz
+MLX_DIR= mlx
+MLX_LIB= $(MLX_DIR)/libmlx_Linux.a
 
-LIBS_FLAGS		= $(LIBFT_FLAGS) $(MLX_FLAGS)
+INCLUDE_DIR= include
+OBJ_DIR= obj/
+SRC_DIR= src/
 
-SRC_DIR		= src/
+# **************************************************************************** #
+#                                .C & .H FILES                                 #
+# **************************************************************************** #
 
-MAIN = main.c init.c free.c error.c utils.c clean.c
+SRC_FILE=	\
+			engine/draw.c \
+			engine/free_mlx.c \
+			engine/game_utils.c \
+			engine/game.c \
+			engine/init_draw.c \
+			engine/minimap.c \
+			engine/move.c \
+			engine/raycast.c \
+			\
+			parser/parser_check.c \
+			parser/parser_map.c \
+			parser/parser_utils.c \
+			parser/parser.c \
+			parser/read_file.c \
+			\
+			clean.c \
+			error.c \
+			free.c \
+			handle.c \
+			init.c \
+			main.c \
+			utils.c
 
-PARSER_FILES= read_file.c parser.c parser_check.c parser_utils.c parser_map.c
-PARSER_DIR=parser/
-PARSER=$(addprefix $(PARSER_DIR), $(PARSER_FILES))
+SRC=		$(addprefix $(SRC_DIR), $(SRC_FILE))
+OBJ=		$(addprefix obj/, ${SRC_FILE:.c=.o})
 
-ENGINE_FILES= game.c init_draw.c game_utils.c draw.c raycast.c free_mlx.c \
-move.c
-ENGINE_DIR=engine/
-ENGINE=$(addprefix $(ENGINE_DIR), $(ENGINE_FILES))
+# **************************************************************************** #
+#                                HEADER CONFIG                                 #
+# **************************************************************************** #
 
-SRC_FILES= $(MAIN) $(PARSER) $(ENGINE)
+#                 # <-- start here         | <-- middle             # <-- stop here
+HEADER_NAME 	= +                      Cub3D                      #
 
-OBJ_DIR=obj/
-OBJ_FILES=$(SRC_FILES:%.c=$(OBJ_DIR)%.o)
+COLOR_RED		= \033[0;31m
+COLOR_GREEN		= \033[0;32m
+COLOR_YELLOW	= \033[0;33m
+COLOR_BLUE		= \033[0;34m
+COLOR_PURPLE	= \033[0;35m
+COLOR_CYAN		= \033[0;36m
+COLOR_WHITE		= \033[0;37m
+COLOR_END		= \033[m
+
+HEADER =		@echo "${COLOR_CYAN}\
+				\n/* ************************************************************************** */\
+				\n/*                                                                            */\
+				\n/*            :::      ::::::::                                               */\
+				\n/*          :+:      :+:    :+:                                               */\
+				\n/*        +:+ +:+         +:${HEADER_NAME}*/\
+				\n/*      +\#+  +:+       +\#+                                                    */\
+				\n/*    +\#+\#+\#+\#+\#+   +\#+                    <aquincho@student.42.fr>           */\
+				\n/*         \#+\#    \#+\#                     <troberts@student.42.fr>            */\
+				\n/*        \#\#\#   \#\#\#\#\#\#\#\#.fr                                                   */\
+				\n/*                                                                            */\
+				\n/* ************************************************************************** */\
+				\n \
+				\n${COLOR_END}"
+
+HEADER_VAR =	@echo "${COLOR_CYAN}\
+				\n \
+				BINARY NAME: $(NAME) \
+				\n CC: $(CC) \
+				\n CFLAGS: $(CFLAGS) \
+				\n LDFLAGS: $(LDFLAGS) \
+				\n${COLOR_END}"
+
+# **************************************************************************** #
+#                                    RULES                                     #
+# **************************************************************************** #
 
 all: $(NAME)
 
+$(NAME): FORCE header
+	$(HEADER_VAR)
+	@echo -n "${COLOR_PURPLE}Creating libf : \n[${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent $(LIBFT_LIB)
+	@echo -n "${COLOR_PURPLE}]\n\n${COLOR_END}"
+	@echo -n "${COLOR_BLUE}Creating mlx : \n${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent $(MLX_LIB)
+	@echo -n "${COLOR_BLUE}\n\n${COLOR_END}"
+	@echo -n "${COLOR_YELLOW}Compiling : \n[${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent $(OBJ)
+	@echo -n "${COLOR_YELLOW}]\n\n${COLOR_END}"
+	@echo -n "${COLOR_GREEN}Linking : "
+	@$(CC) -o $@ $(OBJ) $(LDFLAGS) $(LIBFT_LIB)
+	@echo "${COLOR_GREEN}Done. ${COLOR_END}"
+
+FORCE: ;
+
 bonus: $(NAME)
 
-$(NAME): $(OBJ_FILES)
-	$(MAKE_LIBFT)
-	$(MAKE_MLX)
-	$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJ_FILES) $(LIBS_FLAGS) -o $(NAME)
-	@echo "\033[33;32m=== cub3d compilation \t\t\tDONE\e[0m"
+$(LIBFT_LIB): makelibf ;
 
-$(OBJ_FILES): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(INC_FLAGS) -c $^ -o $@
+makelibf :
+	make -C $(LIBFT_DIR)
 
-clean:
-	$(RM) -r $(OBJ_DIR)
-	$(MAKE_LIBFT) clean
-	$(MAKE_MLX) clean
-	@echo "\033[33;32m=== cub3d object files deleted \t\t\t\tDONE\e[0m"
+$(MLX_LIB): makemlx ;
 
-fclean:	clean
-	$(RM) $(NAME)
-	$(MAKE_LIBFT) fclean
-	@echo "\033[33;32m=== cub3d bin file deleted \t\t\tDONE\e[0m"
+makemlx :
+	make -C $(MLX_DIR)
 
-re: fclean all
+$(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@echo -n "${COLOR_YELLOW}#${COLOR_END}"
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-.PHONY: clean fclean re all
+reobj: FORCE header cleanobj
+	$(HEADER_VAR)
+	@echo -n "${COLOR_YELLOW}Compiling : \n[${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent $(OBJ)
+	@echo -n "${COLOR_YELLOW}]\n\n${COLOR_END}"
+	@echo -n "${COLOR_GREEN}Linking : "
+	@$(CC) -o $@ $(OBJ) $(LDFLAGS) $(LIBFT_LIB)
+	@echo "${COLOR_GREEN}Done. ${COLOR_END}"
+
+header:
+	$(HEADER)
+
+cleanobj:
+	@rm -f $(OBJ)
+
+cleanobjdir: cleanobj
+	@rm -rf $(OBJ_DIR)
+
+cleanlibft:
+	@make -C $(LIBFT_DIR) clean
+	make -C $(MLX_DIR) clean
+
+fcleanlibft:
+	@make -C $(LIBFT_DIR) fclean
+
+clean: header
+	@echo "${COLOR_RED}Removing libs objects.${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent cleanlibft
+	@echo "${COLOR_RED}Removing objects.${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent cleanobj
+	@echo "${COLOR_RED}Removing object directory.${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent cleanobjdir
+
+fclean: clean
+	@echo "${COLOR_RED}Removing libs binary files.${COLOR_END}"
+	@$(MAKE) --no-print-directory --silent fcleanlibft
+	@echo "${COLOR_RED}Removing binary file.${COLOR_END}"
+	@rm -f $(NAME) $(NAME_BONUS)
+
+re: header fclean all
+
+# reobj: cleanobj
+# 	make -C .
+
+norm: header
+	@echo -n "$(COLOR_GREEN)"
+	-python3 -m norminette $(SRC_DIR)
+	@echo "$(COLOR_PURPLE)"
+	-python3 -m norminette $(INCLUDE_DIR)
+	@echo -n "$(COLOR_END)"
+
+.PHONY: all clean fclean re reobj norm header cleanobj bonus FORCE makelibf makemlx cleanobjdir cleanlibft fcleanlibft

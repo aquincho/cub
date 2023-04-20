@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 11:01:27 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/12 13:32:10 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:07:48 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,17 @@ int	ft_draw(t_game *game)
 		x++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win.ptr, game->img.ptr, 0, 0);
+	if (game->show_minimap)
+	{
+		if (game->mmap_ratio >= 1)
+		{
+			ft_draw_minimap(game);
+			mlx_put_image_to_window(game->mlx, game->win.ptr,
+				game->img_minimap.ptr, 10, 10);
+		}
+		else
+			mlx_string_put(game->mlx, game->win.ptr, 10, 10,
+				ft_rgb_to_int(250, 10, 10), "MAP IS TOO LARGE TO BE SHOWED");
+	}
 	return (EXIT_SUCCESS);
 }

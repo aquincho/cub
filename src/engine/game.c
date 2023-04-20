@@ -6,7 +6,7 @@
 /*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 09:53:26 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/12 13:26:15 by aquincho         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:18:25 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int	ft_keypress(int keycode, t_game *game)
 	player_move = 0;
 	if (keycode == XK_Escape)
 		clean_exit(game);
+	if (keycode == XK_space)
+		game->show_minimap = !game->show_minimap;
 	if (keycode == XK_A || keycode == XK_a)
 		player_move = ft_move_left_right(game, 1);
 	else if (keycode == XK_D || keycode == XK_d)
@@ -47,6 +49,17 @@ static int	ft_keypress(int keycode, t_game *game)
 	if (player_move)
 		ft_update(game);
 	return (0);
+}
+
+static int	ft_mouse(int x, int y, t_game *game)
+{
+	if (x <= game->mouse_x)
+		ft_rotate_left(game);
+	else
+		ft_rotate_right(game);
+	game->mouse_x = x;
+	(void)y;
+	return (EXIT_SUCCESS);
 }
 
 /* static int	ft_keyrelease(int keycode, t_game *game)
@@ -68,10 +81,10 @@ int	ft_game(t_game game)
 		ft_error_exit(init_err, "Cannot initialize mlx", &game, EXIT_FAILURE);
 	if (ft_init_draw(&game) == EXIT_FAILURE)
 		ft_error_exit(init_err, "Cannot initialize draw", &game, EXIT_FAILURE);
-	//ft_draw(&game);
 	mlx_hook(game.win.ptr, DestroyNotify, StructureNotifyMask, clean_exit,
 		&game);
 	mlx_hook(game.win.ptr, KeyPress, KeyPressMask, ft_keypress, &game);
+	mlx_hook(game.win.ptr, MotionNotify, PointerMotionMask, ft_mouse, &game);
 	mlx_loop_hook(game.mlx, ft_draw, &game);
 	mlx_loop(game.mlx);
 	return (EXIT_SUCCESS);

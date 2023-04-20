@@ -39,28 +39,39 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 AR = ar cr
 
+COLOR_RED		= \033[0;31m
+COLOR_GREEN		= \033[0;32m
+COLOR_YELLOW	= \033[0;33m
+COLOR_BLUE		= \033[0;34m
+COLOR_PURPLE	= \033[0;35m
+COLOR_CYAN		= \033[0;36m
+COLOR_WHITE		= \033[0;37m
+COLOR_END		= \033[m
+
+
 %.o: %.c
+	@echo -n "${COLOR_PURPLE}#${COLOR_END}"
 	$(CC) $(CFLAGS) -c -I $(HEAD_PATH) $< -o $(<:.c=.o)
 
 $(NAME): $(OBJS) $(GNL_OBJS)
 	$(AR) $(NAME) $(OBJS) $(GNL_OBJS)
 	ranlib $(NAME)
-	@echo "\033[33;32m=== compilation libft \t\t\t\tDONE\e[0m"
+#	@echo "\033[33;32m=== compilation libft \t\t\t\tDONE\e[0m"
 
 bonus: $(BONUS_OBJS)
 	$(AR) $(NAME) $(BONUS_OBJS)
 	ranlib $(NAME)
-	@echo "\033[33;32m=== compilation libft lists \t\t\t\tDONE\e[0m"
+#	@echo "\033[33;32m=== compilation libft lists \t\t\t\tDONE\e[0m"
 
 printf: $(PRINTF_OBJS)
 	$(AR) $(NAME) $(PRINTF_OBJS)
 	ranlib $(NAME)
-	@echo "\033[33;32m=== compilation libft printf \t\t\t\tDONE\e[0m"
+#	@echo "\033[33;32m=== compilation libft printf \t\t\t\tDONE\e[0m"
 
 gnl: $(GNL_OBJS)
 	$(AR) $(NAME) $(GNL_OBJS)
 	ranlib $(NAME)
-	@echo "\033[33;32m=== compilation libft get_next_line \t\t\tDONE\e[0m"
+#	@echo "\033[33;32m=== compilation libft get_next_line \t\t\tDONE\e[0m"
 
 all:	$(NAME)
 #all:	$(NAME) bonus printf gnl
@@ -70,11 +81,11 @@ clean:
 #	$(RM) $(BONUS_OBJS)
 #	$(RM) $(PRINTF_OBJS)
 	$(RM) $(GNL_OBJS)
-	@echo "\033[33;32m=== delete compil files libft \t\t\tDONE\e[0m"
+#	@echo "\033[33;32m=== delete compil files libft \t\t\tDONE\e[0m"
 
 fclean:	clean
 	$(RM) $(NAME)
-	@echo "\033[33;32m=== delete name files libft \t\t\tDONE\e[0m"
+#	@echo "\033[33;32m=== delete name files libft \t\t\tDONE\e[0m"
 
 re: fclean all
 

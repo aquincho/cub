@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: troberts <troberts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aquincho <aquincho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:05:30 by aquincho          #+#    #+#             */
-/*   Updated: 2023/04/09 18:08:22 by troberts         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:12:26 by aquincho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_display_error(t_error error_type, char *msg)
 	char	*msg_err;
 
 	msg_err = ft_msg_error(error_type);
-	ft_putstr_fd("cub3d: error: ", STDERR_FILENO);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putstr_fd(msg_err, STDERR_FILENO);
 	if (msg)
 		ft_putstr_fd(msg, STDERR_FILENO);

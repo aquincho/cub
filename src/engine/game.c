@@ -14,14 +14,14 @@
 
 static int	update(t_game *game)
 {
-	if (game->img.ptr)
-		mlx_destroy_image(game->mlx, game->img.ptr);
-	game->img.ptr = mlx_new_image(game->mlx, game->win.size.x,
-			game->win.size.y);
-	if (!game->img.ptr)
-		return (EXIT_FAILURE);
-	game->img.addr = mlx_get_data_addr(game->img.ptr,
-			&game->img.bpp, &game->img.line_len, &game->img.endian);
+	// if (game->img.ptr)
+	// 	mlx_destroy_image(game->mlx, game->img.ptr);
+	// game->img.ptr = mlx_new_image(game->mlx, game->win.size.x,
+	// 		game->win.size.y);
+	// if (!game->img.ptr)
+	// 	return (EXIT_FAILURE);
+	// game->img.addr = mlx_get_data_addr(game->img.ptr,
+	// 		&game->img.bpp, &game->img.line_len, &game->img.endian);
 	return (EXIT_SUCCESS);
 }
 

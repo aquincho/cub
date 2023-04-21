@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-int	ft_check_file(char *path)
+int	check_file(char *path)
 {
 	int	tmp_fd;
 
@@ -24,20 +24,20 @@ int	ft_check_file(char *path)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_read_file(t_game *game, char *arg)
+int	read_file(t_game *game, char *arg)
 {
 	int		fd;
 
-	if (ft_strlen(arg) < 4
-		|| ft_strncmp((arg + ft_strlen(arg)- 4), ".cub", 4))
+	if (strlen(arg) < 4
+		|| strncmp((arg + strlen(arg)- 4), ".cub", 4))
 	{
-		return (ft_display_error(rd_file_err, " Wrong map format."));
+		return (display_error(rd_file_err, " Wrong map format."));
 	}
-	game->data.name = ft_substr(arg, 0, ft_strlen(arg) - 4);
+	game->data.name = substr(arg, 0, strlen(arg) - 4);
 	fd = open(arg, O_RDONLY);
 	if (fd < 1)
-		return (ft_display_error(rd_file_err, arg));
-	if (ft_parser(fd, &game->data))
+		return (display_error(rd_file_err, arg));
+	if (parser(fd, &game->data))
 		return (EXIT_FAILURE);
 	close(fd);
 	return (0);

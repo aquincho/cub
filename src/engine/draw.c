@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-static void	ft_init_wall(t_game *game)
+static void	init_wall(t_game *game)
 {
 	if (game->ray.side == 0)
 	{
@@ -41,9 +41,9 @@ static void	ft_init_wall(t_game *game)
 			- game->ray.tex_pos_int.x - 1;
 }
 
-void	ft_draw_wall(t_game *game, t_pos pos)
+void	draw_wall(t_game *game, t_pos pos)
 {
-	ft_init_wall(game);
+	init_wall(game);
 	game->ray.tex_step = 1.0 * game->texture[game->ray.tex_type].height
 		/ game->ray.height;
 	game->ray.tex_pos.y = (game->ray.wall_start.y - game->win.size.y / 2
@@ -54,14 +54,14 @@ void	ft_draw_wall(t_game *game, t_pos pos)
 		game->ray.tex_pos_int.y = (int)game->ray.tex_pos.y
 			& (game->texture[game->ray.tex_type].height - 1);
 		game->ray.tex_pos.y += game->ray.tex_step;
-		ft_pixel_put(&game->img, pos,
-			ft_get_tex_color(&game->texture[game->ray.tex_type],
+		pixel_put(&game->img, pos,
+			get_tex_color(&game->texture[game->ray.tex_type],
 				&game->ray.tex_pos_int));
 		pos.y += 1;
 	}
 }
 
-void	ft_draw_column(t_game *game, int x)
+void	draw_column(t_game *game, int x)
 {
 	t_pos	pos;
 
@@ -85,18 +85,18 @@ void	ft_draw_column(t_game *game, int x)
 					game->data.floor.g, game->data.floor.b));
 		pos.y += 1;
 	}
-	ft_draw_wall(game, pos);
+	draw_wall(game, pos);
 }
 
-int	ft_draw(t_game *game)
+int	draw(t_game *game)
 {
 	int		x;
 
 	x = 0;
 	while (x < game->win.size.x)
 	{
-		ft_raycast(game, x);
-		ft_draw_column(game, x);
+		raycast(game, x);
+		draw_column(game, x);
 		x++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win.ptr, game->img.ptr, 0, 0);
@@ -104,7 +104,7 @@ int	ft_draw(t_game *game)
 	{
 		if (game->mmap_ratio >= 1)
 		{
-			ft_draw_minimap(game);
+			draw_minimap(game);
 			mlx_put_image_to_window(game->mlx, game->win.ptr,
 				game->img_minimap.ptr, 10, 10);
 		}

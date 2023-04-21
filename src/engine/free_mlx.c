@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-void	ft_free_mlx(t_game *game)
+void	free_mlx(t_game *game)
 {
 	int	i;
 
@@ -37,9 +37,9 @@ void	ft_free_mlx(t_game *game)
 	}
 }
 
-int	ft_kill_win(t_game *game)
+int	kill_win(t_game *game)
 {
-	ft_free_mlx(game);
-	ft_free_game(game);
+	free_mlx(game);
+	free_game(game);
 	exit (0);
 }

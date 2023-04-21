@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-int	ft_move_up_down(t_game *game, int direction)
+int	move_up_down(t_game *game, int direction)
 {
 	if (game->data.map[(int)(game->cam.pos.y + direction * game->cam.dir.y
 			* game->cam.move_speed * 3)][(int)game->cam.pos.x] == '0' &&
@@ -25,7 +25,7 @@ int	ft_move_up_down(t_game *game, int direction)
 	return (1);
 }
 
-int	ft_move_left_right(t_game *game, int direction)
+int	move_left_right(t_game *game, int direction)
 {
 	if (game->data.map[(int)(game->cam.pos.y - direction * game->cam.dir.x
 			* game->cam.move_speed * 3)][(int)game->cam.pos.x] == '0' &&
@@ -38,7 +38,7 @@ int	ft_move_left_right(t_game *game, int direction)
 	return (1);
 }
 
-int	ft_rotate_left(t_game *game)
+int	rotate_left(t_game *game)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -56,7 +56,7 @@ int	ft_rotate_left(t_game *game)
 	return (1);
 }
 
-int	ft_rotate_right(t_game *game)
+int	rotate_right(t_game *game)
 {
 	double	old_dir_x;
 	double	old_plane_x;

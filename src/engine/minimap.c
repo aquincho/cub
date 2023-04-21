@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-void	ft_size_mmap(t_game *game)
+void	size_mmap(t_game *game)
 {
 	game->mmap_size.x = game->data.width * MMAP_RATIO;
 	game->mmap_size.y = game->data.height * MMAP_RATIO;
@@ -37,7 +37,7 @@ void	ft_size_mmap(t_game *game)
 	}
 }
 
-void	ft_draw_minimap_elements(t_game *game, t_pos pos)
+void	draw_minimap_elements(t_game *game, t_pos pos)
 {
 	if (pos.x < game->data.width * game->mmap_ratio
 		&& pos.y < game->data.height * game->mmap_ratio
@@ -61,7 +61,7 @@ void	ft_draw_minimap_elements(t_game *game, t_pos pos)
 		ft_pixel_put(&game->img_minimap, pos, ft_rgb_to_int(0, 0, 0));
 }
 
-void	ft_draw_minimap(t_game *game)
+void	draw_minimap(t_game *game)
 {
 	t_pos	pos;
 
@@ -71,7 +71,7 @@ void	ft_draw_minimap(t_game *game)
 		pos.y = 0;
 		while (pos.y < game->mmap_size.y)
 		{
-			ft_draw_minimap_elements(game, pos);
+			draw_minimap_elements(game, pos);
 			if (pos.x > (game->cam.pos.x * game->mmap_ratio) - 2
 				&& pos.x < (game->cam.pos.x * game->mmap_ratio) + 2
 				&& pos.y > (game->cam.pos.y * game->mmap_ratio) - 2

@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-static char	*ft_msg_error(t_error error_type)
+static char	*msg_error(t_error error_type)
 {
 	if (error_type == sys_err)
 		return ("System error");
@@ -28,11 +28,11 @@ static char	*ft_msg_error(t_error error_type)
 		return ("Error");
 }
 
-int	ft_display_error(t_error error_type, char *msg)
+int	display_error(t_error error_type, char *msg)
 {
 	char	*msg_err;
 
-	msg_err = ft_msg_error(error_type);
+	msg_err = msg_error(error_type);
 	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putstr_fd(msg_err, STDERR_FILENO);
 	if (msg)
@@ -41,9 +41,9 @@ int	ft_display_error(t_error error_type, char *msg)
 	return (EXIT_FAILURE);
 }
 
-int	ft_error_exit(t_error error_type, char *msg, t_game *game, int return_code)
+int	error_exit(t_error error_type, char *msg, t_game *game, int return_code)
 {
-	ft_display_error(error_type, msg);
+	display_error(error_type, msg);
 	if (game)
 		clean_exit(game);
 	exit (return_code);

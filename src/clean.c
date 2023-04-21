@@ -31,7 +31,7 @@ int	clean_window_display(t_game *game, int return_code)
 
 int	clean_exit(t_game *game)
 {
-	ft_free_data(&game->data);
-	ft_free_mlx(game);
+	free_data(&game->data);
+	free_mlx(game);
 	exit(EXIT_SUCCESS);
 }

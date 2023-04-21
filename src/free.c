@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-int	ft_free_tab(char **tab)
+int	free_tab(char **tab)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ int	ft_free_tab(char **tab)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_free_texture(char **texture)
+int	free_texture(char **texture)
 {
 	int	i;
 
@@ -44,22 +44,22 @@ int	ft_free_texture(char **texture)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_free_data(t_data *data)
+int	free_data(t_data *data)
 {
 	if (!data)
 		return (0);
 	if (data->name)
 		free (data->name);
 	if (data->map)
-		ft_free_tab(data->map);
-	ft_free_texture(data->texture);
+		free_tab(data->map);
+	free_texture(data->texture);
 	return (0);
 }
 
-int	ft_free_game(t_game *game)
+int	free_game(t_game *game)
 {
 	if (!game)
 		return (0);
-	ft_free_data(&game->data);
+	free_data(&game->data);
 	return (0);
 }

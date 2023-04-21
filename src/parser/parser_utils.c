@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-char	**ft_tabdup_addline(char **tab, char *line, int size)
+char	**tabdup_addline(char **tab, char *line, int size)
 {
 	char	**result;
 	int		i;
@@ -38,24 +38,24 @@ char	**ft_tabdup_addline(char **tab, char *line, int size)
 	return (result);
 }
 
-int	ft_texture(char **texture, char *line, int *used)
+int	texture(char **texture, char *line, int *used)
 {
 	char	**tmp;
 
 	if (*used > 0)
-		return (ft_display_error(file_err, " same texture twice"));
+		return (display_error(file_err, " same texture twice"));
 	(*used) += 1;
 	tmp = ft_split(line, ' ');
 	if (tmp[1])
 		*texture = ft_strdup(tmp[1]);
 	texture[0][ft_strlen(*texture) - 1] = '\0';
-	ft_free_tab(tmp);
-	if (ft_check_file(*texture))
-		return (ft_display_error(file_err, " Cannot read image file"));
+	free_tab(tmp);
+	if (check_file(*texture))
+		return (display_error(file_err, " Cannot read image file"));
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_set_color(t_color *color, char **tmp)
+static int	set_color(t_color *color, char **tmp)
 {
 	color->r = ft_atoi(tmp[0]);
 	color->g = ft_atoi(tmp[1]);
@@ -66,35 +66,35 @@ static int	ft_set_color(t_color *color, char **tmp)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_color(t_color *color, char *line, int *used)
+int	color(t_color *color, char *line, int *used)
 {
 	char	**tmp;
 	int		i;
 
 	if (*used > 0)
-		return (ft_display_error(file_err, " same color twice"));
+		return (display_error(file_err, " same color twice"));
 	(*used)++;
 	while (!ft_isdigit(*line))
 		line++;
 	if (!*line)
-		return (ft_display_error(file_err, " Cannot read color"));
+		return (display_error(file_err, " Cannot read color"));
 	if (ft_strchr(line, ','))
 		tmp = ft_split(line, ',');
 	else
-		return (ft_display_error(file_err, " Cannot read color"));
+		return (display_error(file_err, " Cannot read color"));
 	i = 0;
 	while (tmp[i])
 		i++;
-	if (i != 3 || ft_set_color(color, tmp))
+	if (i != 3 || set_color(color, tmp))
 	{
-		ft_free_tab(tmp);
-		return (ft_display_error(file_err, " Cannot read color"));
+		free_tab(tmp);
+		return (display_error(file_err, " Cannot read color"));
 	}
-	ft_free_tab(tmp);
+	free_tab(tmp);
 	return (EXIT_SUCCESS);
 }
 
-void	ft_start_pos(t_data *data, int i, int j)
+void	start_pos(t_data *data, int i, int j)
 {
 	data->start_pos.x = j;
 	data->start_pos.y = i;

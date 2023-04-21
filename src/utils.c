@@ -12,13 +12,13 @@
 
 #include "cub.h"
 
-void	ft_set_pos(t_pos *pos, double X, double Y)
+void	set_pos(t_pos *pos, double X, double Y)
 {
 	pos->x = X;
 	pos->y = Y;
 }
 
-int	ft_check_inset(char *line, char *set)
+int	check_inset(char *line, char *set)
 {
 	int		i;
 	int		j;

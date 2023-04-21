@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-inline static void	ft_init_ray_step_y(t_game *game)
+inline static void	init_ray_step_y(t_game *game)
 {
 	if (game->ray.dir.y < 0)
 	{
@@ -29,7 +29,7 @@ inline static void	ft_init_ray_step_y(t_game *game)
 	}
 }
 
-inline static void	ft_init_ray_step_x(t_game *game)
+inline static void	init_ray_step_x(t_game *game)
 {
 	if (game->ray.dir.x < 0)
 	{
@@ -44,10 +44,10 @@ inline static void	ft_init_ray_step_x(t_game *game)
 				- game->cam.pos.x)
 			* game->ray.delta_dist.x;
 	}
-	ft_init_ray_step_y(game);
+	init_ray_step_y(game);
 }
 
-inline static void	ft_init_ray(t_game *game, int x)
+inline static void	init_ray(t_game *game, int x)
 {
 	game->ray.cam_x = 2 * x / (game->win.size.x) - 1;
 	game->ray.dir.x = game->cam.dir.x + game->cam.plane.x * game->ray.cam_x;
@@ -62,10 +62,10 @@ inline static void	ft_init_ray(t_game *game, int x)
 		game->ray.delta_dist.y = fabs(1 / game->ray.dir.y);
 	else
 		game->ray.delta_dist.y = FLT_MAX;
-	ft_init_ray_step_x(game);
+	init_ray_step_x(game);
 }
 
-inline static void	ft_dda(t_game *game)
+inline static void	dda(t_game *game)
 {
 	int	hit;
 
@@ -89,10 +89,10 @@ inline static void	ft_dda(t_game *game)
 	}
 }
 
-void	ft_raycast(t_game *game, int x)
+void	raycast(t_game *game, int x)
 {
-	ft_init_ray(game, x);
-	ft_dda(game);
+	init_ray(game, x);
+	dda(game);
 	if (game->ray.side == 0)
 		game->ray.wall_dist = (game->ray.side_dist.x - game->ray.delta_dist.x);
 	else

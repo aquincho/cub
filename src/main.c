@@ -17,12 +17,12 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	if (argc != 2)
-		ft_error_exit(arg_err, NULL, NULL, EXIT_FAILURE);
-	if (ft_init_game(&game))
-		ft_error_exit(init_err, NULL, &game, EXIT_FAILURE);
-	if (ft_read_file(&game, argv[1]))
-		ft_error_exit(rd_file_err, NULL, &game, EXIT_FAILURE);
-	ft_game(game);
+		error_exit(arg_err, NULL, NULL, EXIT_FAILURE);
+	if (init_game(&game))
+		error_exit(init_err, NULL, &game, EXIT_FAILURE);
+	if (read_file(&game, argv[1]))
+		error_exit(rd_file_err, NULL, &game, EXIT_FAILURE);
+	game(game);
 	clean_exit(&game);
 	return (EXIT_SUCCESS);
 }

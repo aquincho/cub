@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-inline static int	ft_check_line_data(char *tmp)
+inline static int	check_line_data(char *tmp)
 {
 	if (ft_strncmp(tmp, "NO ", 3) && ft_strncmp(tmp, "SO ", 3)
 		&& ft_strncmp(tmp, "WE ", 3) && ft_strncmp(tmp, "EA ", 3)
@@ -22,35 +22,35 @@ inline static int	ft_check_line_data(char *tmp)
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_parse_line(t_data *data, char *tmp, int fd)
+static int	parse_line(t_data *data, char *tmp, int fd)
 {
-	if (ft_check_line_data(tmp))
-		return (ft_display_error(file_err, " Wrong data"));
+	if (check_line_data(tmp))
+		return (display_error(file_err, " Wrong data"));
 	if (!ft_strncmp(tmp, "NO ", 3)
-		&& ft_texture(&data->texture[north], tmp, &data->data_read[north]))
-		return (ft_display_error(file_err, " Cannot read north image file"));
+		&& texture(&data->texture[north], tmp, &data->data_read[north]))
+		return (display_error(file_err, " Cannot read north image file"));
 	if (!ft_strncmp(tmp, "SO ", 3)
 		&& ft_texture(&data->texture[south], tmp, &data->data_read[south]))
-		return (ft_display_error(file_err, " Cannot read south image file"));
+		return (display_error(file_err, " Cannot read south image file"));
 	if (!ft_strncmp(tmp, "WE ", 3)
-		&& ft_texture(&data->texture[west], tmp, &data->data_read[west]))
-		return (ft_display_error(file_err, " Cannot read west image file"));
+		&& texture(&data->texture[west], tmp, &data->data_read[west]))
+		return (display_error(file_err, " Cannot read west image file"));
 	if (!ft_strncmp(tmp, "EA ", 3)
-		&& ft_texture(&data->texture[east], tmp, &data->data_read[east]))
-		return (ft_display_error(file_err, " Cannot read east image file"));
+		&& texture(&data->texture[east], tmp, &data->data_read[east]))
+		return (display_error(file_err, " Cannot read east image file"));
 	if (!ft_strncmp(tmp, "C ", 2)
-		&& ft_color(&data->ceil, tmp, &data->data_read[ceil_c]))
-		return (ft_display_error(file_err, " Cannot read ceil color"));
+		&& color(&data->ceil, tmp, &data->data_read[ceil_c]))
+		return (display_error(file_err, " Cannot read ceil color"));
 	if (!ft_strncmp(tmp, "F ", 2)
-		&& ft_color(&data->floor, tmp, &data->data_read[floor_c]))
-		return (ft_display_error(file_err, " Cannot read floor color"));
+		&& color(&data->floor, tmp, &data->data_read[floor_c]))
+		return (display_error(file_err, " Cannot read floor color"));
 	if (((!ft_strncmp(tmp, "1", 1) || !ft_strncmp(tmp, " ", 1))
-			&& ft_map(data, fd, tmp)))
-		return (ft_display_error(file_err, " Cannot read map"));
+			&& map(data, fd, tmp)))
+		return (display_error(file_err, " Cannot read map"));
 	return (EXIT_SUCCESS);
 }
 
-inline static void	ft_empty_lines(char **tmp, int fd)
+inline static void	empty_lines(char **tmp, int fd)
 {
 	while (*tmp && !ft_strncmp(*tmp, "\n", 1))
 	{
@@ -59,7 +59,7 @@ inline static void	ft_empty_lines(char **tmp, int fd)
 	}
 }
 
-inline static void	ft_map_done(t_data *data, int fd, char **tmp)
+inline static void	map_done(t_data *data, int fd, char **tmp)
 {
 	if (data->map_done)
 		*tmp = NULL;
@@ -70,7 +70,7 @@ inline static void	ft_map_done(t_data *data, int fd, char **tmp)
 	}
 }
 
-int	ft_parser(int fd, t_data *data)
+int	parser(int fd, t_data *data)
 {
 	char	*tmp;
 	int		nb_data;
@@ -79,17 +79,17 @@ int	ft_parser(int fd, t_data *data)
 	tmp = get_next_line(fd);
 	while (tmp)
 	{
-		ft_empty_lines(&tmp, fd);
-		if (tmp && !ft_parse_line(data, tmp, fd))
+		empty_lines(&tmp, fd);
+		if (tmp && !parse_line(data, tmp, fd))
 			nb_data++;
 		else
 		{
 			free (tmp);
 			return (EXIT_FAILURE);
 		}
-		ft_map_done(data, fd, &tmp);
+		map_done(data, fd, &tmp);
 	}
 	if (nb_data != 7)
-		return (ft_display_error(file_err, " Missing data"));
+		return (display_error(file_err, " Missing data"));
 	return (EXIT_SUCCESS);
 }

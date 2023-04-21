@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-static int	ft_check_space(char **map, int i, int *j)
+static int	check_space(char **map, int i, int *j)
 {
 	if (map[i][*j - 1] != '1')
 		return (EXIT_FAILURE);
@@ -23,7 +23,7 @@ static int	ft_check_space(char **map, int i, int *j)
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_check_wall(char **map, t_data *data, int i)
+static int	check_wall(char **map, t_data *data, int i)
 {
 	int	j;
 	int	k;
@@ -43,7 +43,7 @@ static int	ft_check_wall(char **map, t_data *data, int i)
 			return (EXIT_FAILURE);
 		else if ((i > 0 && i < data->height))
 		{
-			if (map[i][j] == ' ' && ft_check_space(map, i, &j))
+			if (map[i][j] == ' ' && check_space(map, i, &j))
 				return (EXIT_FAILURE);
 		}
 		j++;
@@ -51,7 +51,7 @@ static int	ft_check_wall(char **map, t_data *data, int i)
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_check_zero(char **map, t_data *data, int i, int j)
+static int	check_zero(char **map, t_data *data, int i, int j)
 {
 	if (map[i][j] == '0' && (map[i - 1][j] == ' ' || map[i + 1][j] == ' '
 		|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
@@ -63,32 +63,32 @@ static int	ft_check_zero(char **map, t_data *data, int i, int j)
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_check_line(char **map, t_data *data, int i, int *nb_perso)
+static int	check_line(char **map, t_data *data, int i, int *nb_perso)
 {
 	int	j;
 
-	if (ft_check_wall(map, data, i))
-		return (ft_display_error(file_err, "Wall incomplete"));
+	if (check_wall(map, data, i))
+		return (display_error(file_err, "Wall incomplete"));
 	j = 0;
 	while (j < (int)ft_strlen((map[i])))
 	{
 		if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
 			|| map[i][j] == 'E')
 		{
-			ft_start_pos(data, i, j);
+			start_pos(data, i, j);
 			if (*nb_perso < 1)
 				(*nb_perso)++;
 			else
-				return (ft_display_error(file_err, "Too many start positions"));
+				return (display_error(file_err, "Too many start positions"));
 		}
-		if (ft_check_zero(map, data, i, j))
+		if (check_zero(map, data, i, j))
 			return (EXIT_FAILURE);
 		j++;
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	ft_check_map(char **map, t_data *data)
+int	check_map(char **map, t_data *data)
 {
 	int	i;
 	int	nb_perso;
@@ -97,11 +97,11 @@ int	ft_check_map(char **map, t_data *data)
 	i = 0;
 	while (map[i])
 	{
-		if (ft_check_line(map, data, i, &nb_perso))
+		if (check_line(map, data, i, &nb_perso))
 			return (EXIT_FAILURE);
 		i++;
 	}
 	if (nb_perso != 1)
-		return (ft_display_error(file_err, "missing start position"));
+		return (display_error(file_err, "missing start position"));
 	return (EXIT_SUCCESS);
 }

@@ -24,7 +24,7 @@ int	ft_rgb_to_int(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-int	ft_get_tex_color(t_texture *tex, t_pos *pos)
+int	get_tex_color(t_texture *tex, t_pos *pos)
 {
 	if (pos->x >= 0 && pos->x < tex->width
 		&& pos->y >= 0 && pos->y < tex->height)

@@ -12,12 +12,12 @@
 
 #include "cub.h"
 
-int	ft_init_mlx(t_game *game)
+int	init_mlx(t_game *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (EXIT_FAILURE);
-	ft_set_pos(&game->win.size, (double)WIN_WIDTH, (double)WIN_HEIGHT);
+	set_pos(&game->win.size, (double)WIN_WIDTH, (double)WIN_HEIGHT);
 	game->win.ptr = mlx_new_window(game->mlx, game->win.size.x,
 			game->win.size.y, "CUB3D");
 	if (!game->win.ptr)
@@ -28,7 +28,7 @@ int	ft_init_mlx(t_game *game)
 		return (EXIT_FAILURE);
 	game->img.addr = mlx_get_data_addr(game->img.ptr,
 			&game->img.bpp, &game->img.line_len, &game->img.endian);
-	ft_size_mmap(game);
+	size_mmap(game);
 	game->img_minimap.ptr = mlx_new_image(game->mlx, game->mmap_size.x,
 			game->mmap_size.y);
 	if (!game->img_minimap.ptr)
@@ -39,7 +39,7 @@ int	ft_init_mlx(t_game *game)
 	return (0);
 }
 
-static int	ft_get_texture(t_game *game)
+static int	get_texture(t_game *game)
 {
 	int	i;
 
@@ -61,24 +61,24 @@ static int	ft_get_texture(t_game *game)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_init_draw(t_game *game)
+int	init_draw(t_game *game)
 {
-	ft_set_pos(&game->cam.pos, game->data.start_pos.x, game->data.start_pos.y);
-	ft_set_pos(&game->cam.dir, game->data.start_dir.x, game->data.start_dir.y);
+	set_pos(&game->cam.pos, game->data.start_pos.x, game->data.start_pos.y);
+	set_pos(&game->cam.dir, game->data.start_dir.x, game->data.start_dir.y);
 	game->data.map[(int)game->data.start_pos.y][(int)game->data.start_pos.x]
 		= '0';
 	if (game->data.start_dir.y == 1)
-		ft_set_pos(&game->cam.plane, -0.66, 0);
+		set_pos(&game->cam.plane, -0.66, 0);
 	else if (game->data.start_dir.y == -1)
-		ft_set_pos(&game->cam.plane, 0.66, 0);
+		set_pos(&game->cam.plane, 0.66, 0);
 	else if (game->data.start_dir.x == 1)
-		ft_set_pos(&game->cam.plane, 0, 0.66);
+		set_pos(&game->cam.plane, 0, 0.66);
 	else if (game->data.start_dir.x == -1)
-		ft_set_pos(&game->cam.plane, 0, -0.66);
+		set_pos(&game->cam.plane, 0, -0.66);
 	game->cam.move_speed = MOVE_SPEED;
 	game->cam.rot_speed = ROT_SPEED;
 	game->show_minimap = false;
-	if (ft_get_texture(game) == EXIT_FAILURE)
+	if (get_texture(game) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

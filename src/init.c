@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-static t_color	ft_init_color(int n)
+static t_color	init_color(int n)
 {
 	t_color	result;
 
@@ -22,7 +22,7 @@ static t_color	ft_init_color(int n)
 	return (result);
 }
 
-inline static void	ft_init_data_read(t_data *data)
+inline static void	init_data_read(t_data *data)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ inline static void	ft_init_data_read(t_data *data)
 	}
 }
 
-static int	ft_init_map(t_data *data)
+static int	init_map(t_data *data)
 {
 	int	i;
 
@@ -42,19 +42,19 @@ static int	ft_init_map(t_data *data)
 	data->map = NULL;
 	data->width = 0;
 	data->height = 0;
-	ft_init_data_read(data);
+	init_data_read(data);
 	data->map_done = false;
-	ft_set_pos(&data->start_pos, 0, 0);
-	ft_set_pos(&data->start_dir, 0, 0);
+	set_pos(&data->start_pos, 0, 0);
+	set_pos(&data->start_dir, 0, 0);
 	i = -1;
 	while (++i < NB_TEXTURES)
 		data->texture[i] = NULL;
-	data->ceil = ft_init_color(0);
-	data->floor = ft_init_color(0);
+	data->ceil = init_color(0);
+	data->floor = init_color(0);
 	return (EXIT_SUCCESS);
 }
 
-int	ft_init_game(t_game *game)
+int	init_game(t_game *game)
 {
 	int	i;
 
@@ -74,7 +74,7 @@ int	ft_init_game(t_game *game)
 	game->mmap_size.y = 0;
 	game->mmap_ratio = 1;
 	game->exit_status = EXIT_SUCCESS;
-	if (ft_init_map(&game->data))
-		return (ft_display_error(sys_err, NULL));
+	if (init_map(&game->data))
+		return (display_error(sys_err, NULL));
 	return (game->exit_status);
 }
